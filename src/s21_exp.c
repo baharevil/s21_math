@@ -28,7 +28,7 @@ long double s21_exp(double x) {
     }
 
     x754.d = x;
-    if (x754.ieee_nan.negative) result = 1 / (double)result;
+    if (x754.ieee_nan.negative) result = 1 / result;
   }
 
   return (double)result;
