@@ -23,6 +23,7 @@
 int s21_abs(int x);
 long double s21_fabs(double);
 long double s21_exp(double);
+long double s21_log(double);
 long double s21_pow(double, double);
 long double s21_fact(double);
 
