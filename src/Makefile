@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS =-Wall -Werror -Wextra -std=c11 -pedantic
+CFLAGS =-Wall -Werror -Wextra -Wfloat-equal -std=c11 -pedantic
 LDFLAGS = -lm
 DEBUG =-g
 
