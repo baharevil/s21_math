@@ -1,8 +1,6 @@
 int s21_abs(int x) {
-    unsigned int result = 0;
-    if (x > 0)
-        result = x;
-    else
+    int result = x;
+    if (x < 0)
         result = -x;
     return result;
 }

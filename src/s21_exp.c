@@ -21,7 +21,7 @@ long double s21_exp(double x) {
   } else {
     x754.d = (double)s21_fabs(x);
 
-    while (s21_fabs(result - prev_result) > epsilon) {
+    while (s21_fabs((double)(result - prev_result)) > epsilon) {
       prev_result = result;
       temp *= x754.d / n++;
       result += temp;

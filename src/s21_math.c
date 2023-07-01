@@ -12,7 +12,7 @@ int main (int argc, char *argv[]) {
         sscanf(argv[1], "%lf", &arg1);
         sscanf(argv[2], "%lf", &arg2);
         printf("abs(%0.lf) = %d\n", arg1, abs((int)arg1));
-        printf("s21_abs(%0.lf) = %d\n", arg1, s21_abs(arg1));
+        printf("s21_abs(%0.lf) = %d\n", arg1, s21_abs((int)arg1));
         printf("fabs(%lf) = %.25lf\n", arg1, fabs(arg1));
         printf("s21_fabs(%lf) = %.25Lf\n", arg1, s21_fabs(arg1));
         printf("exp(%lf) = %.25lf\n", arg1, exp(arg1));

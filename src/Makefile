@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS =-Wall -Werror -Wextra -Wfloat-equal -std=c11 -pedantic
+CFLAGS =-Wall -Werror -Wextra -Wfloat-equal -Wconversion -std=c11 -pedantic
 LDFLAGS = -lm
 DEBUG =-g
 
@@ -20,7 +20,7 @@ s21_pow.o: s21_pow.c
 	$(CC) $(CFLAGS) $(DEBUG) -c s21_pow.c -o s21_pow.o
 
 clean:
-		rm *.o s21_math
+	rm *.o s21_math
 
 #s21_math.a
 #gcov_report:
