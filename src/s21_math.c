@@ -6,14 +6,6 @@
 
 
 int main (int argc, char *argv[]) {
-
-#if	__BYTE_ORDER == __LITTLE_ENDIAN
-    printf("Little endian.\n");
-#endif
-#if	__BYTE_ORDER == __BIG_ENDIAN
-    printf("Big endian.\n");
-#endif
-
     double arg1 = 0;
     double arg2 = 0;
     if (argc - 1 == 2) {
