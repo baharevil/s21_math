@@ -17,6 +17,8 @@ int main (int argc, char *argv[]) {
         printf("s21_fabs(%lf) = %.25Lf\n", arg1, s21_fabs(arg1));
         printf("exp(%lf) = %.25lf\n", arg1, exp(arg1));
         printf("s21_exp(%lf) = %.25Lf\n", arg1, s21_exp(arg1));
+        printf("log(%lf) = %.25lf\n", arg2, log(arg2));
+        printf("s21_log(%lf) = %.25Lf\n", arg2, s21_log(arg2));
         printf("pow(%lf, %lf) = %.25lf\n", arg1, arg2, pow(arg1, arg2));
         printf("s21_pow(%lf, %lf) = %.25Lf\n", arg1, arg2, s21_pow(arg1, arg2));
     } else {
