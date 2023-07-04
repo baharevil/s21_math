@@ -51,6 +51,8 @@ long double s21_log(const double x) {
       }
     } else {
       result = x754.d - 1.0;  // Для случая когда х меньше 1 соответсвенно
+
+      // Метод do while для чисел меньше 1 считает точнее
       do {
         prev_result = result;
         result = prev_result + 2 * ((x754.d - s21_exp((double)prev_result)) /
