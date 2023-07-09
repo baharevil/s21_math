@@ -1,10 +1,9 @@
 #include <ieee754.h>
-#include <stdio.h>
 
 #include "s21_math.h"
 
 long double s21_log(const double x) {
-  double result = 0, prev_result = 0, epsilon = 1e-6, count = 0;
+  double result = 0, prev_result = 0, epsilon = 1e-10, count = 0;
   union ieee754_double x754, x754_full = {0};
 
   x754.d = x;
@@ -28,7 +27,7 @@ long double s21_log(const double x) {
   else {
     while (x754.d > S21_M_E) {
       x754.d /= S21_M_E;
-      count -= -1;  // это просто ради мема
+      count++;
     }
 
     result = x754.d - 1;

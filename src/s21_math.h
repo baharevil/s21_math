@@ -25,7 +25,23 @@ int s21_abs(int x);
 long double s21_fabs(double);
 long double s21_exp(double);
 long double s21_log(double x);
-long double s21_pow(double, double);
-long double s21_fact(double);
+long double s21_pow(double base, double exp);
+long double s21_sqrt(double x);
+
+// 1	int abs(int x)	                            | V
+// 2	long double acos(double x)	                |
+// 3	long double asin(double x)	                |
+// 4	long double atan(double x)	                |
+// 5	long double ceil(double x)	                |
+// 6	long double cos(double x)	                |
+// 7	long double exp(double x)	                | V
+// 8	long double fabs(double x)	                | V
+// 9	long double floor(double x)	                |
+// 10	long double fmod(double x, double y)        |
+// 11	long double log(double x)	                | V
+// 12	long double pow(double base, double exp)	| V
+// 13	long double sin(double x)	                |
+// 14	long double sqrt(double x)	                | V
+// 15	long double tan(double x)                   |
 
 #endif
