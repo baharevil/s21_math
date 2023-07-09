@@ -1,22 +1,15 @@
 #include <ieee754.h>
 #include <stdio.h>
+#include <math.h>
 
 #include "s21_math.h"
 
-// Замечание 1: есть какие-то аномальные числа, при которых падает точность
-//              например 0.8 - 1.4, 3, 10, 100, 10000,
-
-// Замечание 2: считает до числа с 19 нулями, после этого обваливается
-//              (максимально рассчитаное число 900_000_000_000_000_000_000)
-
-// Замечание 3: после ниже приведенного числа уходит в inf
-//              .00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009
-
-long double s21_log(const double x) {
-  long double result = 0, prev_result = 0, epsilon = 1e-20;
+long double s21_log(double x) {
+  double result = 0, prev_result = 0, epsilon = 1e-6, count = 0;
   union ieee754_double x754, x754_full = {0};
 
   x754.d = x;
+
   // (1 << 11) - 1 = 2047
   x754_full.ieee.exponent = (1 << 11) - 1;
 
@@ -41,25 +34,20 @@ long double s21_log(const double x) {
 
   // В любом другом случае будет число > 0
   else {
-    if (s21_fabs((double)(x - 1)) > 1) {
-      result = 1 / x754.d;  // Для случая когда х больше 1
-      while ((result - prev_result) > epsilon) {
-        prev_result = result;
-        result = prev_result +
-                 (long double)2 * ((x754.d - s21_exp((double)prev_result)) /
-                                   (x754.d + s21_exp((double)prev_result)));
+      while (x754.d > S21_M_E) {
+        x754.d /= S21_M_E;
+        count++;
       }
-    } else {
-      result = x754.d - 1.0;  // Для случая когда х меньше 1 соответсвенно
 
-      // Метод do while для чисел меньше 1 считает точнее
-      do {
+      result = x754.d - 1;  // Для случая когда х больше 1
+
+      while (s21_fabs((double)(result - prev_result)) > epsilon) {
         prev_result = result;
-        result = prev_result + 2 * ((x754.d - s21_exp((double)prev_result)) /
-                                    (x754.d + s21_exp((double)prev_result)));
-      } while ((prev_result - result) > epsilon);
-    }
+        result = prev_result + 2.0 * ((x754.d - (double)s21_exp(prev_result)) /
+                                      (x754.d + (double)s21_exp(prev_result)));
+      }
+
   }
 
-  return (double)result;
+  return (result + count);
 }
