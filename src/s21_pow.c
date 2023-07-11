@@ -36,8 +36,7 @@ long double s21_pow(double base, double exp) {
 
     result *= (double)s21_exp((exp * (double)s21_log(x754.d)));
 
-    if ((base < 0) && (s21_fabs((double)s21_fmod(exp, 2.0) - 1) <
-                       epsilon))  // Необходимо исправить и написать свой fmod
+    if ((base < 0) && (s21_fabs((double)s21_fmod(exp, 2.0) - 1) < epsilon))
       result *= -1;
   }
 
