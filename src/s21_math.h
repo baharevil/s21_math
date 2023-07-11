@@ -38,7 +38,7 @@ long double s21_sqrt(double x);
 // 7	long double exp(double x)	                | +
 // 8	long double fabs(double x)	                | +
 // 9	long double floor(double x)	                |
-// 10	long double fmod(double x, double y)        | +-
+// 10	long double fmod(double x, double y)        | +
 // 11	long double log(double x)	                | +
 // 12	long double pow(double base, double exp)	| +-
 // 13	long double sin(double x)	                |

@@ -11,14 +11,14 @@ int main(int argc, char *argv[]) {
   if (argc - 1 == 2) {
     sscanf(argv[1], "%lf", &arg1);
     sscanf(argv[2], "%lf", &arg2);
-    printf("    log(%lf) = %.25lf\n", arg2, log(arg2));
-    printf("s21_log(%lf) = %.25Lf\n", arg2, s21_log(arg2));
-    printf("    pow(%lf, %lf) = %.6lf\n", arg1, arg2, pow(arg1, arg2));
-    printf("s21_pow(%lf, %lf) = %.6Lf\n", arg1, arg2, s21_pow(arg1, arg2));
-    printf("    sqrt(%lf) = %.6lf\n", arg1, sqrt(arg1));
-    printf("s21_sqrt(%lf) = %.6Lf\n", arg1, s21_sqrt(arg1));
-    printf("    fmod(%lf, %lf) = %.6lf\n", arg1, arg2, fmod(arg1, arg2));
-    printf("s21_fmod(%lf, %lf) = %.6Lf\n", arg1, arg2, s21_fmod(arg1, arg2));
+    printf("         log(%lf) = %.25lf\n", arg2, log(arg2));
+    printf("     s21_log(%lf) = %.25Lf\n", arg2, s21_log(arg2));
+    printf("    pow(%lf, %lf) = %.25lf\n", arg1, arg2, pow(arg1, arg2));
+    printf("s21_pow(%lf, %lf) = %.25Lf\n", arg1, arg2, s21_pow(arg1, arg2));
+    printf("\n    sqrt(%lf) = %.25lf\n", arg1, sqrt(arg1));
+    printf("s21_sqrt(%lf) = %.25Lf\n", arg1, s21_sqrt(arg1));
+    printf("\n    fmod(%lf, %lf) = %.25lf\n", arg1, arg2, fmod(arg1, arg2));
+    printf("s21_fmod(%lf, %lf) = %.25Lf\n", arg1, arg2, s21_fmod(arg1, arg2));
   } else {
     printf("No arguments. Exit.\n");
   }
