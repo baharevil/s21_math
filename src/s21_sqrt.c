@@ -1,15 +1,15 @@
-#include "s21_math.h"
 #include <ieee754.h>
 
+#include "s21_math.h"
 
 long double s21_sqrt(double x) {
-    double result = 0;
+  double result = 0;
 
-    // Проверка на отрицательную 
-    if (x < 0)
-        result = -S21_NAN;
-    else 
-        result = (double)s21_pow(x, 0.5);
-    
-    return result; 
+  // Проверка на отрицательную
+  if (x < 0)
+    result = -S21_NAN;
+  else
+    result = (double)s21_pow(x, 0.5);
+
+  return result;
 }

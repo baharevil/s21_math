@@ -17,7 +17,8 @@ int main(int argc, char *argv[]) {
     printf("s21_pow(%lf, %lf) = %.6Lf\n", arg1, arg2, s21_pow(arg1, arg2));
     printf("    sqrt(%lf) = %.6lf\n", arg1, sqrt(arg1));
     printf("s21_sqrt(%lf) = %.6Lf\n", arg1, s21_sqrt(arg1));
-  
+    printf("    fmod(%lf, %lf) = %.6lf\n", arg1, arg2, fmod(arg1, arg2));
+    printf("s21_fmod(%lf, %lf) = %.6Lf\n", arg1, arg2, s21_fmod(arg1, arg2));
   } else {
     printf("No arguments. Exit.\n");
   }
