@@ -1,4 +1,5 @@
 #include <ieee754.h>
+#include <math.h>
 
 #include "s21_math.h"
 
@@ -6,7 +7,7 @@ long double s21_pow(double base, double exp) {
   double result = 1, epsilon = 1e-20;
   union ieee754_double x754, x754_full = {0};
 
-  x754.d = base;
+  x754.d = (double)s21_fabs(base);
 
   // (1 << 11) - 1 = 2047
   x754_full.ieee.exponent = (1 << 11) - 1;
@@ -24,8 +25,21 @@ long double s21_pow(double base, double exp) {
   else if (s21_fabs((double)(exp - 0)) < epsilon) 
     result = 1;
 
-  else 
-    result = (double)s21_exp((exp * (double)s21_log(base)));
+  else if ((fmod(exp, 1.0) > 1e-323) && (base < 0)) 
+    result = -S21_NAN;
+
+  else {
+
+    while (exp > 1.0) {
+      result *= base;
+      exp--;
+    }
+    
+    result *= (double)s21_exp((exp * (double)s21_log(x754.d)));
+
+    if ((base < 0) && (s21_fabs((double)fmod(exp, 2.0) - 1) < epsilon)) // Необходимо исправить и написать свой fmod
+        result *= -1;
+  }
   
   
   return result;
