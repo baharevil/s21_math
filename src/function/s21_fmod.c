@@ -1,4 +1,5 @@
 #include "../s21_math.h"
+#include <stdio.h>
 
 long double s21_fmod(double x, double y) {
   long long int mod = 0;
@@ -16,18 +17,20 @@ long double s21_fmod(double x, double y) {
   // Проверка х = nan
   if ((copy_x.ieee_nan.negative == 0) &&
       (copy_x.ieee_nan.exponent == x754_full.ieee.exponent) &&
-      (copy_x.ieee_nan.quiet_nan))
+      (copy_x.ieee_nan.quiet_nan)) 
     result = x;
 
   // Проверка х = +-inf
   else if ((copy_x.ieee_nan.exponent == x754_full.ieee.exponent) &&
            (copy_x.ieee_nan.mantissa0 == 0))
-    result = -S21_NAN;
+    result =  -S21_NAN;
+
 
   // Проверка y = +-nan
-  if ((copy_y.ieee_nan.exponent == x754_full.ieee.exponent) &&
-      (copy_y.ieee_nan.quiet_nan))
+  else if ((copy_y.ieee_nan.exponent == x754_full.ieee.exponent) &&
+      (copy_y.ieee_nan.quiet_nan)) 
     result = y;
+
 
   // Проверка y = +- inf
   else if ((copy_y.ieee_nan.exponent == x754_full.ieee.exponent) &&
