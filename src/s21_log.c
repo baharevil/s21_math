@@ -1,5 +1,3 @@
-#include <ieee754.h>
-
 #include "s21_math.h"
 
 long double s21_log(const double x) {

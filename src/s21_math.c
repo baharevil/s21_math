@@ -1,6 +1,5 @@
 #include "s21_math.h"
 
-#include <ieee754.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

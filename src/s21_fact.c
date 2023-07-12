@@ -1,4 +1,4 @@
-#include "s21_fact.h"
+#include "s21_math.h"
 
 long double s21_fact(double x) {
   register long double result = 1;
