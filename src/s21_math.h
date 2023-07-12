@@ -24,8 +24,8 @@
 #include <ieee754.h>
 
 int s21_abs(int x);
-long double s21_fabs(double);
-long double s21_exp(double);
+long double s21_fabs(double x);
+long double s21_exp(double x);
 long double s21_log(double x);
 long double s21_fmod(double x, double y);
 long double s21_pow(double base, double exponent);
@@ -42,9 +42,9 @@ long double s21_sqrt(double x);
 // 9	long double floor(double x)	                |
 // 10	long double fmod(double x, double y)        | +
 // 11	long double log(double x)	                | +
-// 12	long double pow(double base, double exp)	| +-
+// 12	long double pow(double base, double exp)	| +
 // 13	long double sin(double x)	                |
-// 14	long double sqrt(double x)	                | +-
+// 14	long double sqrt(double x)	                | +
 // 15	long double tan(double x)                   | 
 
 #endif
