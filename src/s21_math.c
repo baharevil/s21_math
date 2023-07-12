@@ -18,6 +18,9 @@ int main(int argc, char *argv[]) {
     printf("s21_sqrt(%lf) = %.25Lf\n", arg1, s21_sqrt(arg1));
     printf("\n    fmod(%lf, %lf) = %.25lf\n", arg1, arg2, fmod(arg1, arg2));
     printf("s21_fmod(%lf, %lf) = %.25Lf\n", arg1, arg2, s21_fmod(arg1, arg2));
+    printf("\n    ceil(%lf) = %.25lf\n", arg1, ceil(arg1));
+    printf("s21_ceil(%lf) = %.25Lf\n", arg1, s21_ceil(arg1));
+    
   } else {
     printf("No arguments. Exit.\n");
   }
