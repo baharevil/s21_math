@@ -47,11 +47,11 @@ long double s21_tan(double x);
 // 6	long double cos(double x)	                | 
 // 7	long double exp(double x)	                | +
 // 8	long double fabs(double x)	                | +
-// 9	long double floor(double x)	                |
-// 10	long double fmod(double x, double y)        | +
+// 9	long double floor(double x)	                | +
+// 10	long double fmod(double x, double y)        | +-
 // 11	long double log(double x)	                | +
 // 12	long double pow(double base, double exp)	| +
-// 13	long double sin(double x)	                |
+// 13	long double sin(double x)	                | 
 // 14	long double sqrt(double x)	                | +
 // 15	long double tan(double x)                   | 
 
