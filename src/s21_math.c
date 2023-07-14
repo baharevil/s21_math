@@ -22,7 +22,8 @@ int main(int argc, char *argv[]) {
     printf("s21_ceil(%lf) = %.25Lf\n", arg1, s21_ceil(arg1));
     printf("\n    floor(%lf) = %.25lf\n", arg1, floor(arg1));
     printf("s21_floor(%lf) = %.25Lf\n", arg1, s21_floor(arg1));
-
+    printf("\n    cos(%lf) = %.25lf\n", arg1, cos(arg1));
+    printf("s21_cos(%lf) = %.25Lf\n", arg1, s21_cos(arg1));
     
   } else {
     printf("No arguments. Exit.\n");

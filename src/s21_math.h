@@ -52,7 +52,7 @@ long double s21_tan(double x);
 // 11	long double log(double x)	                | +
 // 12	long double pow(double base, double exp)	| +
 // 13	long double sin(double x)	                | 
-// 14	long double sqrt(double x)	                | +
+// 14	long double sqrt(double x)	                | +-
 // 15	long double tan(double x)                   | 
 
 #endif
