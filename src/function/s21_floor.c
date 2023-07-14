@@ -2,6 +2,7 @@
 
 long double s21_floor(double x) {
   double mod = 0, result = 0;
+  // double result = 0;
   union ieee754_double copy_x, x754_full = {0};
 
   // Создаем копию
@@ -16,10 +17,17 @@ long double s21_floor(double x) {
     result = x;
 
   else {
+    // Versio_1
     mod = (double)s21_fmod(x, 1.0);
     result = x - mod;
 
     if ((x < 0) && (s21_fabs(mod) > 0)) result--;
+    
+    // Versio_2
+    // long long copy_x = (long long)x;
+    // result = (double)copy_x ;
+
+    // if ((x < 0) && !(s21_fabs(result - x) < 1e-6)) result--;
   }
 
   return result;
