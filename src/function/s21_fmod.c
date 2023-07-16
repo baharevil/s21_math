@@ -1,5 +1,7 @@
 #include "../s21_math.h"
 
+#include <stdio.h>
+
 long double s21_fmod(double x, double y) {
   long double result = 0;
 
@@ -36,11 +38,11 @@ long double s21_fmod(double x, double y) {
   // Любой другой вариант
   else {
     // ВАРИАНТ_1
-    long long int mod = (long long int)(x / y);
-    result = x - (long double)mod * y;
+    // long long int mod = (long long int)(x / y);
+    // result = x - (long double)mod * y;
 
     // ВАРИАНТ_2
-    // long double mod = -1, temp = 0;//, result = 0;
+    // long double mod = -1, temp = 0;
     // long double copy = s21_fabs(x);
 
     // while (temp < copy) {
@@ -53,28 +55,47 @@ long double s21_fmod(double x, double y) {
     // if (x < 0)
     //   result *= -1;
 
-    // ВАРИАНТ_3 
-    // long int degree = 0;
-    // union ieee754_double int_part = {0}, temp = {0};
-    // int_part.d = x / y;
-    
-    // // Получаем степень сдвига в экспоненте
-    // degree = int_part.ieee.exponent - 1023;
+    // ВАРИАНТ_3
+    long int degree = 0;
+    union ieee754_double int_part = {0}, temp = {0};
+    int_part.d = x / y;
+    temp.d = 1.0;
 
-    // // Инвертируем чтобы все биты стали 1
-    // temp.ieee.mantissa0 = ~temp.ieee.mantissa0; 
-    
-    // // Сдвигаемся вправо на количетсво степеней (все забивается 0 из-за правого сдвига)
-    // temp.ieee.mantissa0 >>= degree;
 
-    // // Производим обратную инверсию, так чтобы 0 стали 1 (это и есть наша целая часть), а 1 стали 0
-    // temp.ieee.mantissa0 = ~temp.ieee.mantissa0; 
+    if (int_part.d > 1) {
+      // Получаем степень сдвига в экспоненте
+      // degree = int_part.ieee.exponent(степень сдвига в числе x / y) - temp.ieee.exponent(1023);
+      degree = int_part.ieee.exponent - temp.ieee.exponent;
+      printf("degree = %ld\n", degree);
     
-    // // Производим логическое и чтобы убрать хвостик и оставить только целую часть от деления х / у
-    // int_part.ieee.mantissa0 &= temp.ieee.mantissa0;
-    
-    // // В конце просто получаем хвостик х
-    // result = x - y * int_part.d;
+      // Сначало разберемся поэтапно!
+      
+      // // Инвертируем чтобы все биты стали 1
+      // temp.ieee.mantissa0 = ~temp.ieee.mantissa0; 
+      
+      // // Сдвигаемся вправо на количетсво степеней (все забивается 0 из-за правого сдвига)
+      // temp.ieee.mantissa0 >>= degree;
+
+      // // Производим обратную инверсию, так чтобы 0 стали 1 (это и есть наша целая часть), а 1 стали 0
+      // temp.ieee.mantissa0 = ~temp.ieee.mantissa0;
+
+      // // Производим логическое и чтобы убрать хвостик и оставить только целую часть от деления х / у
+      // int_part.ieee.mantissa0 &= temp.ieee.mantissa0
+
+      // Все что описано выше, но в одно действие
+      int_part.ieee.mantissa0 &= ~((~temp.ieee.mantissa0) >> degree);
+
+      // Если степень больше 20 (т.е. больше размера маниссы0), то продолжаем сдвиг в мантиссе1
+      if (degree > 20) {
+        int_part.ieee.mantissa1 &= ~((~temp.ieee.mantissa1) >> (degree - 20));
+      }
+
+    } else {
+      int_part.d = 0;
+    } 
+
+    // В конце просто получаем хвостик х
+    result = x - y * int_part.d;
   }
 
   return result;
