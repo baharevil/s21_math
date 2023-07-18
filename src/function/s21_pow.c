@@ -1,5 +1,5 @@
 #include "../s21_math.h"
-
+#include <stdio.h>
 long double s21_pow(double base, double exp) {
   double result = 1, epsilon = 1e-10,
          mod = (double)s21_fabs((double)s21_fmod(exp, 1.0));
@@ -22,8 +22,8 @@ long double s21_pow(double base, double exp) {
   }
 
   // Проверка на 1 как в pow так и в base
-  else if (s21_fabs((double)(copy_exp.d - 1.0)) < epsilon ||
-           s21_fabs((double)(copy_base.d - 1.0)) < epsilon)
+  else if ((exp > 0 && s21_fabs((double)(copy_exp.d - 1.0)) < epsilon) ||
+           (base > 0 && s21_fabs((double)(copy_base.d - 1.0)) < epsilon))
     result = base;
 
   // Проверка на 0 в pow
@@ -45,10 +45,11 @@ long double s21_pow(double base, double exp) {
     if (mod > 0)
       result *= (double)s21_exp((copy_exp.d * (double)s21_log(copy_base.d)));
 
-    // Второе условие проверяет четность exp
+    // Если base отрицательная и степень нечетная 
     if ((base < 0) && (s21_fabs((double)s21_fmod(exp, 2.0) - 1.0) < epsilon))
       result *= -1;
 
+    // Если степень отрицательная
     if (exp < 0) result = 1 / result;
   }
 
