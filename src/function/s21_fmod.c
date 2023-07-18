@@ -37,12 +37,11 @@ void bin_double (double x) {
     if (((i == 0) || (i == 11)) || (i == 31)) printf(" ");
   }
 
-  printf("\n\n");
+  printf("\n");
 }
 
 long double s21_fmod(double x, double y) {
   long double result = 0;
-
   union ieee754_double copy_x, copy_y, x754_full = {0};
 
   // Создаем копии преходящих аргументов
@@ -68,7 +67,7 @@ long double s21_fmod(double x, double y) {
            (copy_y.ieee_nan.quiet_nan))
     result = y;
 
-  // Проверка y = +- inf
+  // Проверка y = +-inf
   else if ((copy_y.ieee_nan.exponent == x754_full.ieee.exponent) &&
            (copy_y.ieee_nan.mantissa0 == 0))
     result = x;
@@ -89,8 +88,8 @@ long double s21_fmod(double x, double y) {
 
     // result = x - (long double)(temp_1 - 1) * y;
 
-    // ВАРИАНТ_3 (пока что кореектно работает только с положительными числами)
-    long int degree = 0, count = 0;
+    // ВАРИАНТ_3 
+    long int degree = 0;
     union ieee754_double int_part = {0}, temp = {0};
     double c_x = (double)s21_fabs(x);
     double c_y = (double)s21_fabs(y);
@@ -99,7 +98,8 @@ long double s21_fmod(double x, double y) {
     // Это необходимо чтобы в экспоненте было 1023
     temp.d = 1.0;
 
-    // bin_double(int_part.d); // Для того чтобы посмотреть что там с битами
+    printf("\nint_part.d = x / y before the modifications\n");
+    bin_double(int_part.d); // Для того чтобы посмотреть что там с битами
 
     //(s21_fabs((double)(int_part.d - 1)) < 1e-60) - эквивалентно int_part.d == 1
     if ((int_part.d > 1) || (s21_fabs((double)(int_part.d - 1)) < 1e-60)) {
@@ -108,12 +108,8 @@ long double s21_fmod(double x, double y) {
       // degree = int_part.ieee.exponent(степень сдвига в числе x / y) - temp.ieee.exponent(1023);
       degree = (int_part.ieee.exponent - temp.ieee.exponent);
 
-      // Уменьшаем до объема мантисы в 52 бита
-      while(degree > 52) {
-        count++;
-        degree -= 52;
-      }
-      
+      while(degree > 52) degree -= 52;
+
       // Если степень == 52, то нам понадобятся все биты с мантиссы
       if (degree == 52){
         // Инвертируем чтобы все биты стали 1
@@ -147,13 +143,15 @@ long double s21_fmod(double x, double y) {
         temp.ieee.mantissa0 = ~temp.ieee.mantissa0;
       }
       
-      // bin_double(temp.d); // Для того чтобы посмотреть что там с битами
+      printf("\nthis is temp\n");
+      bin_double(temp.d); // Для того чтобы посмотреть что там с битами
 
       // Производим логическое "и" чтобы убрать дробную часть и оставить только целую часть от деления х / у
       int_part.ieee.mantissa0 &= temp.ieee.mantissa0;
       int_part.ieee.mantissa1 &= temp.ieee.mantissa1;
 
-      // bin_double(int_part.d); // Для того чтобы посмотреть что там с битами
+      printf("\nint_part.d = x / y after the modifications\n");
+      bin_double(int_part.d); // Для того чтобы посмотреть что там с битами
 
     } else {
       int_part.d = 0;

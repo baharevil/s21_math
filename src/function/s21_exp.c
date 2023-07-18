@@ -7,16 +7,22 @@ long double s21_exp(double x) {
   // (1 << 11) - 1 = 2047
   x754_full.ieee.exponent = (1 << 11) - 1;
 
+  // Проверка на х = +-nan
   if ((x754.ieee_nan.exponent == x754_full.ieee.exponent) &&
       (x754.ieee_nan.quiet_nan)) {
     result = x;
-  } else if ((x754.ieee_nan.exponent == x754_full.ieee.exponent) &&
+  } 
+  
+  // Проверка на x = +-inf
+  else if ((x754.ieee_nan.exponent == x754_full.ieee.exponent) &&
              (x754.ieee_nan.mantissa0 == 0)) {
     if (x754.ieee_nan.negative)
       result = 0;
     else
       result = x;
-  } else {
+  } 
+  
+  else {
     x754.d = (double)s21_fabs(x);
 
     while (s21_fabs((double)(result - prev_result)) > epsilon) {
