@@ -92,7 +92,9 @@ long double s21_fmod(double x, double y) {
     // ВАРИАНТ_3 (пока что кореектно работает только с положительными числами)
     long int degree = 0, count = 0;
     union ieee754_double int_part = {0}, temp = {0};
-    int_part.d = x / y;
+    double c_x = (double)s21_fabs(x);
+    double c_y = (double)s21_fabs(y);
+    int_part.d = c_x / c_y;
     
     // Это необходимо чтобы в экспоненте было 1023
     temp.d = 1.0;
@@ -158,7 +160,10 @@ long double s21_fmod(double x, double y) {
     } 
 
     // В конце получаем подсчитываем остаток от деления
-    result = x - (y * int_part.d);
+    result = c_x - (c_y * int_part.d);
+
+    if (x < 0)
+      result *= -1;
   }
 
   return (double)result;
