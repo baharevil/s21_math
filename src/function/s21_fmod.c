@@ -1,13 +1,13 @@
-#include "../s21_math.h"
-
 #include <stdio.h>
 
+#include "../s21_math.h"
+
 // Если нужно будет посмотреть подетальнее на работу ВАРИАНТА_3
-// вызывайте следующую функцию. 
+// вызывайте следующую функцию.
 
 // Показывает бинарное представление числа типа double в формате:
 // знак(1) - экспонента(11) - мантисса0(20) - мантисса1(32)
-void bin_double (double x) {
+void bin_double(double x) {
   union ieee754_double x754;
   x754.d = x;
 
@@ -30,7 +30,7 @@ void bin_double (double x) {
   }
 
   *(arr + i) = x754.ieee.negative & 0x1;
-  
+
   for (; i < size; i++) {
     printf("%d", *(arr + i));
     // if (((i == 0) || (i == 11)) || ((i > 13) && (i % 13 == 0))) printf(" ");
@@ -84,84 +84,89 @@ long double s21_fmod(double x, double y) {
 
     // if (temp > 1.0)
     //   while (temp > temp_1)
-    //     temp_1 += 1;      
+    //     temp_1 += 1;
 
     // result = x - (long double)(temp_1 - 1) * y;
 
-    // ВАРИАНТ_3 
+    // ВАРИАНТ_3
     long int degree = 0;
     union ieee754_double int_part = {0}, temp = {0};
     double c_x = (double)s21_fabs(x);
     double c_y = (double)s21_fabs(y);
     int_part.d = c_x / c_y;
-    
+
     // Это необходимо чтобы в экспоненте было 1023
     temp.d = 1.0;
 
     printf("\nint_part.d = x / y before the modifications\n");
-    bin_double(int_part.d); // Для того чтобы посмотреть что там с битами
+    bin_double(int_part.d);  // Для того чтобы посмотреть что там с битами
 
-    //(s21_fabs((double)(int_part.d - 1)) < 1e-60) - эквивалентно int_part.d == 1
+    //(s21_fabs((double)(int_part.d - 1)) < 1e-60) - эквивалентно int_part.d ==
+    //1
     if ((int_part.d > 1) || (s21_fabs((double)(int_part.d - 1)) < 1e-60)) {
-
       // Получаем степень сдвига в экспоненте
-      // degree = int_part.ieee.exponent(степень сдвига в числе x / y) - temp.ieee.exponent(1023);
+      // degree = int_part.ieee.exponent(степень сдвига в числе x / y) -
+      // temp.ieee.exponent(1023);
       degree = (int_part.ieee.exponent - temp.ieee.exponent);
 
-      while(degree > 52) degree -= 52;
+      while (degree > 52) degree -= 52;
 
       // Если степень == 52, то нам понадобятся все биты с мантиссы
-      if (degree == 52){
+      if (degree == 52) {
         // Инвертируем чтобы все биты стали 1
-        temp.ieee.mantissa0 = ~temp.ieee.mantissa0; 
-        temp.ieee.mantissa1 = ~temp.ieee.mantissa1; 
+        temp.ieee.mantissa0 = ~temp.ieee.mantissa0;
+        temp.ieee.mantissa1 = ~temp.ieee.mantissa1;
       }
 
-      // Если степень больше 20, то нам понадобится вся мантисса0 и степень минус 20 бит мантиссы1
+      // Если степень больше 20, то нам понадобится вся мантисса0 и степень
+      // минус 20 бит мантиссы1
       else if (degree > 20) {
         // Инвертируем чтобы все биты стали 1
-        temp.ieee.mantissa0 = ~temp.ieee.mantissa0; 
+        temp.ieee.mantissa0 = ~temp.ieee.mantissa0;
         temp.ieee.mantissa1 = ~temp.ieee.mantissa1;
-        
-        // Сдвигаемся вправо на количетсво степеней (забивается 0 из-за правого сдвига)
+
+        // Сдвигаемся вправо на количетсво степеней (забивается 0 из-за правого
+        // сдвига)
         temp.ieee.mantissa1 >>= (degree - 20);
 
         // Производим обратную инверсию, так чтобы 0 стали 1, а 1 стали 0
         temp.ieee.mantissa1 = ~temp.ieee.mantissa1;
 
-      } 
-      
+      }
+
       // Если степень <= 20, то нам хватит только мантиссы0
       else {
         // Инвертируем чтобы все биты стали 1
         temp.ieee.mantissa0 = ~temp.ieee.mantissa0;
 
-        // Сдвигаемся вправо на количетсво степеней (все забивается 0 из-за правого сдвига)
+        // Сдвигаемся вправо на количетсво степеней (все забивается 0 из-за
+        // правого сдвига)
         temp.ieee.mantissa0 >>= degree;
 
-        // Производим обратную инверсию, так чтобы 0 стали 1 (это и есть наша целая часть), а 1 стали 0
+        // Производим обратную инверсию, так чтобы 0 стали 1 (это и есть наша
+        // целая часть), а 1 стали 0
         temp.ieee.mantissa0 = ~temp.ieee.mantissa0;
       }
-      
-      printf("\nthis is temp\n");
-      bin_double(temp.d); // Для того чтобы посмотреть что там с битами
 
-      // Производим логическое "и" чтобы убрать дробную часть и оставить только целую часть от деления х / у
+      printf("\nthis is temp\n");
+      bin_double(temp.d);  // Для того чтобы посмотреть что там с битами
+
+      // Производим логическое "и" чтобы убрать дробную часть и оставить только
+      // целую часть от деления х / у
       int_part.ieee.mantissa0 &= temp.ieee.mantissa0;
       int_part.ieee.mantissa1 &= temp.ieee.mantissa1;
 
       printf("\nint_part.d = x / y after the modifications\n");
-      bin_double(int_part.d); // Для того чтобы посмотреть что там с битами
+      bin_double(int_part.d);  // Для того чтобы посмотреть что там с битами
 
     } else {
       int_part.d = 0;
-    } 
+    }
 
     // В конце получаем подсчитываем остаток от деления
     result = c_x - (c_y * int_part.d);
 
-    if (x < 0)
-      result *= -1;
+    if (x < 0) result *= -1;
   }
 
   return (double)result;

@@ -11,17 +11,17 @@ long double s21_exp(double x) {
   if ((x754.ieee_nan.exponent == x754_full.ieee.exponent) &&
       (x754.ieee_nan.quiet_nan)) {
     result = x;
-  } 
-  
+  }
+
   // Проверка на x = +-inf
   else if ((x754.ieee_nan.exponent == x754_full.ieee.exponent) &&
-             (x754.ieee_nan.mantissa0 == 0)) {
+           (x754.ieee_nan.mantissa0 == 0)) {
     if (x754.ieee_nan.negative)
       result = 0;
     else
       result = x;
-  } 
-  
+  }
+
   else {
     x754.d = (double)s21_fabs(x);
 

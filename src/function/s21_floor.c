@@ -22,7 +22,7 @@ long double s21_floor(double x) {
     result = x - mod;
 
     if ((x < 0) && (s21_fabs(mod) > 0)) result--;
-    
+
     // Versio_2
     // long long copy_x = (long long)x;
     // result = (double)copy_x ;
