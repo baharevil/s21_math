@@ -12,7 +12,7 @@ all: $(program_name)
 
 # test
 $(program_name): $(addsuffix .o, $(program_name)) s21_math.a
-	$(CC) -o $@ $(addsuffix .o, $(program_name)) -L. -ls21_math $(LDFLAGS)
+	$(CC) -o $@ $< -L. -ls21_math $(LDFLAGS)
 
 s21_math.a: $(dir_obj_list)
 	ar cr $(addprefix lib, $@) $^
