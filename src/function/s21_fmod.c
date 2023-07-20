@@ -91,9 +91,7 @@ long double s21_fmod(double x, double y) {
     // ВАРИАНТ_3
     long int degree = 0;
     union ieee754_double int_part = {0}, temp = {0};
-    double c_x = (double)s21_fabs(x);
-    double c_y = (double)s21_fabs(y);
-    int_part.d = c_x / c_y;
+    int_part.d = (double)s21_fabs(copy_x.d / copy_y.d);
 
     // Это необходимо чтобы в экспоненте было 1023
     temp.d = 1.0;
@@ -131,7 +129,6 @@ long double s21_fmod(double x, double y) {
 
         // Производим обратную инверсию, так чтобы 0 стали 1, а 1 стали 0
         temp.ieee.mantissa1 = ~temp.ieee.mantissa1;
-
       }
 
       // Если степень <= 20, то нам хватит только мантиссы0
@@ -164,9 +161,10 @@ long double s21_fmod(double x, double y) {
     }
 
     // В конце получаем подсчитываем остаток от деления
-    result = c_x - (c_y * int_part.d);
+    result = (double)s21_fabs(copy_x.d) - ((double)s21_fabs(copy_y.d) * int_part.d);
 
-    if (x < 0) result *= -1;
+    if (copy_x.ieee_nan.negative)
+      result *= -1;
   }
 
   return (double)result;
