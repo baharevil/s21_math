@@ -98,11 +98,11 @@ long double s21_fmod(double x, double y) {
     // Это необходимо чтобы в экспоненте было 1023
     temp.d = 1.0;
 
-    printf("\nint_part.d = x / y before the modifications\n");
-    bin_double(int_part.d);  // Для того чтобы посмотреть что там с битами
+    // printf("\nint_part.d = x / y before the modifications\n");
+    // bin_double(int_part.d);  // Для того чтобы посмотреть что там с битами
 
-    //(s21_fabs((double)(int_part.d - 1)) < 1e-60) - эквивалентно int_part.d ==
-    //1
+    //(s21_fabs((double)(int_part.d - 1)) < 1e-60) - 
+    // эквивалентно int_part.d ==1
     if ((int_part.d > 1) || (s21_fabs((double)(int_part.d - 1)) < 1e-60)) {
       // Получаем степень сдвига в экспоненте
       // degree = int_part.ieee.exponent(степень сдвига в числе x / y) -
@@ -148,16 +148,16 @@ long double s21_fmod(double x, double y) {
         temp.ieee.mantissa0 = ~temp.ieee.mantissa0;
       }
 
-      printf("\nthis is temp\n");
-      bin_double(temp.d);  // Для того чтобы посмотреть что там с битами
+      // printf("\nthis is temp\n");
+      // bin_double(temp.d);  // Для того чтобы посмотреть что там с битами
 
       // Производим логическое "и" чтобы убрать дробную часть и оставить только
       // целую часть от деления х / у
       int_part.ieee.mantissa0 &= temp.ieee.mantissa0;
       int_part.ieee.mantissa1 &= temp.ieee.mantissa1;
 
-      printf("\nint_part.d = x / y after the modifications\n");
-      bin_double(int_part.d);  // Для того чтобы посмотреть что там с битами
+      // printf("\nint_part.d = x / y after the modifications\n");
+      // bin_double(int_part.d);  // Для того чтобы посмотреть что там с битами
 
     } else {
       int_part.d = 0;
