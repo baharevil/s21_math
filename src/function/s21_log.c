@@ -9,8 +9,12 @@ long double s21_log(const double x) {
   // (1 << 11) - 1 = 2047
   x754_full.ieee.exponent = (1 << 11) - 1;
 
+  // Проверка на отрицательный 0
+  if (x754.ieee.negative && s21_fabs((double)(x - 0)) < epsilon)
+    result = -S21_INF;
+
   // Проверка на отрицательное число
-  if (x754.ieee.negative != 0) result = -S21_NAN;
+  else if (x754.ieee.negative != 0) result = -S21_NAN;
 
   // Проверка на бесконечность
   else if ((x754.ieee.exponent == x754_full.ieee.exponent) &&
@@ -28,7 +32,7 @@ long double s21_log(const double x) {
       count++;
     }
 
-    result = x754.d - 1;
+    result = x754.d - 2;
 
     while ((double)s21_fabs((result - prev_result)) > epsilon) {
       prev_result = result;
