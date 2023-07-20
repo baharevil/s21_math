@@ -7,7 +7,7 @@ long double s21_pow(double base, double exp) {
   union ieee754_double copy_base, copy_exp, x754_full = {0};
 
   // Создаем копии преходящих аргументов
-  copy_base.d = (double)s21_fabs(base);
+  copy_base.d = base;
   copy_exp.d = (double)s21_fabs(exp);
 
   // (1 << 11) - 1 = 2047
@@ -27,17 +27,17 @@ long double s21_pow(double base, double exp) {
            (base > 0 && s21_fabs((double)(copy_base.d - 1.0)) < epsilon))
     result = base;
 
-  // Проверка на 0 в pow
+  // Проверка на 0 в exp
   else if (s21_fabs((double)(copy_exp.d - 0)) < epsilon)
     result = 1;
 
   // Проверка на случай если base < 0 и exp не целое число
-  else if ((base < 0) && (mod > 0))
+  else if ((base < 0) && (mod > 0)) 
     result = -S21_NAN;
-
+   
   else {
     // Шагаем в циклое целыми шагами
-    while ((copy_exp.d - mod) > 0) {
+    while (copy_exp.d > mod) {
       result *= copy_base.d;
       copy_exp.d--;
     }
@@ -45,10 +45,6 @@ long double s21_pow(double base, double exp) {
     // Выполняем домножение если в exp существует что-то после запятой
     if (mod > 0)
       result *= (double)s21_exp((copy_exp.d * (double)s21_log(copy_base.d)));
-
-    // Если base отрицательная и степень нечетная
-    if ((base < 0) && (s21_fabs((double)s21_fmod(exp, 2.0) - 1.0) < epsilon))
-      result *= -1;
 
     // Если степень отрицательная
     if (exp < 0) result = 1 / result;
