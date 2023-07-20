@@ -18,14 +18,11 @@ $(program_name): s21_math.o s21_math.a
 s21_math.a: $(dir_obj_list)
 	ar cr $(addprefix lib, $@) $^
 
-s21_math.o: s21_math.c
-	$(CC) $(CFLAGS) $(DEBUG) -c $^ -o $@
-
 %.o: %.c
 	$(CC) $(CFLAGS) $(DEBUG) -c $^ -o $@
 
 # gcov_report
+rebuild: clean all
 
 clean:
 	rm $(dir_obj_list) *.o *.a $(program_name)
-
