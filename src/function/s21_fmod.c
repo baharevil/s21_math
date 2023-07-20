@@ -101,7 +101,7 @@ long double s21_fmod(double x, double y) {
     // printf("\nint_part.d = x / y before the modifications\n");
     // bin_double(int_part.d);  // Для того чтобы посмотреть что там с битами
 
-    //(s21_fabs((double)(int_part.d - 1)) < 1e-60) - 
+    // (s21_fabs((double)(int_part.d - 1)) < 1e-60) -
     // эквивалентно int_part.d ==1
     if ((int_part.d > 1) || (s21_fabs((double)(int_part.d - 1)) < 1e-60)) {
       // Получаем степень сдвига в экспоненте
