@@ -32,9 +32,9 @@ long double s21_pow(double base, double exp) {
     result = 1;
 
   // Проверка на случай если base < 0 и exp не целое число
-  else if ((base < 0) && (mod > 0)) 
+  else if ((base < 0) && (mod > 0))
     result = -S21_NAN;
-   
+
   else {
     // Шагаем в циклое целыми шагами
     while (copy_exp.d > mod) {

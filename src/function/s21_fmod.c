@@ -54,11 +54,11 @@ long double s21_fmod(double x, double y) {
   // Проверка на 0 / 0
   if ((s21_fabs(copy_x.d - 0) < 1e-60) && (s21_fabs(copy_y.d - 0) < 1e-60))
     result = -S21_NAN;
-  
+
   // Проверка х = nan
   else if ((copy_x.ieee_nan.negative == 0) &&
-      (copy_x.ieee_nan.exponent == x754_full.ieee.exponent) &&
-      (copy_x.ieee_nan.quiet_nan))
+           (copy_x.ieee_nan.exponent == x754_full.ieee.exponent) &&
+           (copy_x.ieee_nan.quiet_nan))
     result = x;
 
   // Проверка х = +-inf
@@ -165,10 +165,10 @@ long double s21_fmod(double x, double y) {
     }
 
     // В конце получаем подсчитываем остаток от деления
-    result = (double)s21_fabs(copy_x.d) - ((double)s21_fabs(copy_y.d) * int_part.d);
+    result =
+        (double)s21_fabs(copy_x.d) - ((double)s21_fabs(copy_y.d) * int_part.d);
 
-    if (copy_x.ieee_nan.negative)
-      result *= -1;
+    if (copy_x.ieee_nan.negative) result *= -1;
   }
 
   return (double)result;

@@ -14,7 +14,8 @@ long double s21_log(const double x) {
     result = -S21_INF;
 
   // Проверка на отрицательное число
-  else if (x754.ieee.negative != 0) result = -S21_NAN;
+  else if (x754.ieee.negative != 0)
+    result = -S21_NAN;
 
   // Проверка на бесконечность
   else if ((x754.ieee.exponent == x754_full.ieee.exponent) &&
