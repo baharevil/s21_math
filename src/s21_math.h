@@ -40,9 +40,9 @@ long double s21_sqrt(double x);
 long double s21_tan(double x);
 
 // 1	int abs(int x)	                            | +
-// 2	long double acos(double x)	                |
-// 3	long double asin(double x)	                |
-// 4	long double atan(double x)	                | 
+// 2	long double acos(double x)	                | +
+// 3	long double asin(double x)	                | +
+// 4	long double atan(double x)	                | +
 // 5	long double ceil(double x)	                | +
 // 6	long double cos(double x)	                | +
 // 7	long double exp(double x)	                | +
