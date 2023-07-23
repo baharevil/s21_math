@@ -34,7 +34,7 @@ long double s21_atan(double x) {
   }
 
   else {
-    unsigned is_valid = (x > -1 && x < 1);
+    unsigned short is_valid = (x > -1 && x < 1);
 
     if (is_valid)
       result = x;
