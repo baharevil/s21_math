@@ -51,8 +51,12 @@ long double s21_fmod(double x, double y) {
   // (1 << 11) - 1 = 2047
   x754_full.ieee.exponent = (1 << 11) - 1;
 
+  // Проверка на 0 / 0
+  if ((s21_fabs(copy_x.d - 0) < 1e-60) && (s21_fabs(copy_y.d - 0) < 1e-60))
+    result = -S21_NAN;
+  
   // Проверка х = nan
-  if ((copy_x.ieee_nan.negative == 0) &&
+  else if ((copy_x.ieee_nan.negative == 0) &&
       (copy_x.ieee_nan.exponent == x754_full.ieee.exponent) &&
       (copy_x.ieee_nan.quiet_nan))
     result = x;
