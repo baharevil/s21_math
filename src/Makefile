@@ -10,7 +10,7 @@ test_dir = tests
 dirs = $(func_dir) $(test_dir)
 obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(dirs))))
 
-.PHONY: all rebuild clean test
+.PHONY: all clean test s21_math.a gcov_report
 # all: $(addsuffix .a, $(project_name))
 all: test
 
@@ -32,9 +32,6 @@ s21_math.a: $(filter $(func_dir)/%.o, $(obj_list))
 clang:
 #	clang-format -n $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
 	clang-format -i $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
-
-
-rebuild: clean all
 
 clean:
 	rm $(obj_list) *.a test
