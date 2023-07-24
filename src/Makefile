@@ -6,21 +6,20 @@ DEBUG = -g
 
 program_name = s21_math
 func_dir = function
-obj_func_dir_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(func_dir))))
 test_dir = tests
-obj_test_dir_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(test_dir))))
+obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(func_dir) $(test_dir))))
 
 .PHONY: all rebuild clean test
 all: $(addsuffix .a, $(program_name))
 
 # Функции используемые в целях
 # https://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC78
-test: s21_math.a $(obj_test_dir_list) 
+test: s21_math.a $(filter $(test_dir)/%.o, $(obj_list)) 
 	$(CC) -o $@ $(wordlist 2, $(words $^), $^) -L. -l$(basename $<) $(TESTFlAGS) $(LDFLAGS)
 	clear
 	./$@ -gcov
 
-s21_math.a: $(obj_func_dir_list)
+s21_math.a: $(filter $(func_dir)/%.o, $(obj_list))
 	ar rc $(addprefix lib, $@) $^
 
 %.o: %.c
@@ -35,4 +34,4 @@ clang:
 rebuild: clean all
 
 clean:
-	rm $(obj_func_dir_list) $(obj_test_dir_list) *.a test
+	rm $(obj_list) *.a test
