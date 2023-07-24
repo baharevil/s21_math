@@ -7,10 +7,12 @@ DEBUG = -g
 project_name = s21_math
 func_dir = function
 test_dir = tests
-obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(func_dir) $(test_dir))))
+dirs = $(func_dir) $(test_dir)
+obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(dirs))))
 
 .PHONY: all rebuild clean test
-all: $(addsuffix .a, $(project_name))
+# all: $(addsuffix .a, $(project_name))
+all: test
 
 # Функции используемые в целях
 # https://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC78
