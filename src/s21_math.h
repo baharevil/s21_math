@@ -1,5 +1,5 @@
-#ifndef S21_MATH
-#define S21_MATH
+#ifndef S21_MATH_H
+#define S21_MATH_H
 
 #define S21_NAN 0.0f / 0.0f
 #define S21_INF 1.0f / 0.0f
