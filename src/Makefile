@@ -10,10 +10,11 @@ obj_func_dir_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(func_dir
 test_dir = tests
 obj_test_dir_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(test_dir))))
 
-
 .PHONY: all rebuild clean test
 all: $(addsuffix .a, $(program_name))
 
+# Функции используемые в целях
+# https://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC78
 test: s21_math.a $(obj_test_dir_list) 
 	$(CC) -o $@ $(wordlist 2, $(words $^), $^) -L. -l$(basename $<) $(TESTFlAGS) $(LDFLAGS)
 	clear
