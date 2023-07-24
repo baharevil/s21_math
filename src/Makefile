@@ -4,13 +4,13 @@ TESTFlAGS = -lcheck -lsubunit -lrt -lpthread
 LDFLAGS = -lm
 DEBUG = -g
 
-program_name = s21_math
+project_name = s21_math
 func_dir = function
 test_dir = tests
 obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(func_dir) $(test_dir))))
 
 .PHONY: all rebuild clean test
-all: $(addsuffix .a, $(program_name))
+all: $(addsuffix .a, $(project_name))
 
 # Функции используемые в целях
 # https://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC78
@@ -25,11 +25,12 @@ s21_math.a: $(filter $(func_dir)/%.o, $(obj_list))
 %.o: %.c
 	$(CC) $(CFLAGS) $(DEBUG) -c $^ -o $@
 
+# gcov_report:
+
 clang:
 #	clang-format -n $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
 	clang-format -i $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
 
-# gcov_report:
 
 rebuild: clean all
 
