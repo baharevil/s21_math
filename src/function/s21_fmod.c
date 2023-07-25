@@ -52,7 +52,8 @@ long double s21_fmod(double x, double y) {
   x754_full.ieee.exponent = (1 << 11) - 1;
 
   // Проверка на 0 / 0
-  if ((s21_fabs(copy_x.d - 0) < 1e-60) && (s21_fabs(copy_y.d - 0) < 1e-60))
+  if ((s21_fabs(copy_x.d - 0) < S21_MIN_VAL) &&
+      (s21_fabs(copy_y.d - 0) < S21_MIN_VAL))
     result = -S21_NAN;
 
   // Проверка х = nan

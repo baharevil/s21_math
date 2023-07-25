@@ -10,7 +10,7 @@ long double s21_log(const double x) {
   x754_full.ieee.exponent = (1 << 11) - 1;
 
   // Проверка на отрицательный 0
-  if (x754.ieee.negative && s21_fabs((double)(x - 0)) < epsilon)
+  if (x754.ieee.negative && s21_fabs((double)(x - 0)) < S21_MIN_VAL)
     result = -S21_INF;
 
   // Проверка на отрицательное число

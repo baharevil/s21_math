@@ -26,7 +26,7 @@ long double s21_atan(double x) {
   }
 
   // Проверка на +-1
-  else if (s21_fabs((double)s21_fabs(copy_x.d) - 1) < 1e-60) {
+  else if (s21_fabs((double)s21_fabs(copy_x.d) - 1) < S21_MIN_VAL) {
     if (copy_x.ieee.negative)
       result = -S21_M_PI_4;
     else

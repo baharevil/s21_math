@@ -11,7 +11,7 @@ long double s21_asin(double x) {
     Остальная валидация на +-NAN, +-INF и +-1
     пройдут в функции s21_atan.
   */
-  if ((x > -1 && x < 1) || (s21_fabs((double)s21_fabs(x) - 1) < 1e-60))
+  if ((x > -1 && x < 1) || (s21_fabs((double)s21_fabs(x) - 1) < S21_MIN_VAL))
     //Основная формула расчета: asin = atan(x / sqrt(1 - x^2))
     result = s21_atan(x / (double)s21_sqrt(1.0 - (double)s21_pow(x, 2)));
   else

@@ -11,7 +11,7 @@ long double s21_acos(double x) {
     Остальная валидация на +-NAN, +-INF и +-1
     пройдут в функции s21_asin.
   */
-  if ((x > -1 && x < 1) || (s21_fabs((double)s21_fabs(x) - 1) < 1e-60))
+  if ((x > -1 && x < 1) || (s21_fabs((double)s21_fabs(x) - 1) < S21_MIN_VAL))
     //Основная формула расчета: acos = pi/2 - atan(x / sqrt(1 - x^2))
     result = S21_M_PI_2 -
              s21_atan(x / (double)s21_sqrt(1.0 - (double)s21_pow(x, 2)));

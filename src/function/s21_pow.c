@@ -2,8 +2,7 @@
 
 #include "../s21_math.h"
 long double s21_pow(double base, double exp) {
-  double result = 1, epsilon = 1e-10,
-         mod = (double)s21_fabs((double)s21_fmod(exp, 1.0));
+  double result = 1, mod = (double)s21_fabs((double)s21_fmod(exp, 1.0));
   union ieee754_double copy_base, copy_exp, x754_full = {0};
 
   // Создаем копии преходящих аргументов
@@ -23,12 +22,12 @@ long double s21_pow(double base, double exp) {
   }
 
   // Проверка на 1 как в pow так и в base
-  else if ((exp > 0 && s21_fabs((double)(copy_exp.d - 1.0)) < epsilon) ||
-           (base > 0 && s21_fabs((double)(copy_base.d - 1.0)) < epsilon))
+  else if ((exp > 0 && s21_fabs((double)(copy_exp.d - 1.0)) < S21_MIN_VAL) ||
+           (base > 0 && s21_fabs((double)(copy_base.d - 1.0)) < S21_MIN_VAL))
     result = base;
 
   // Проверка на 0 в exp
-  else if (s21_fabs((double)(copy_exp.d - 0)) < epsilon)
+  else if (s21_fabs((double)(copy_exp.d - 0)) < S21_MIN_VAL)
     result = 1;
 
   // Проверка на случай если base < 0 и exp не целое число
