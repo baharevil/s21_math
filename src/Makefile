@@ -18,6 +18,9 @@ all: test
 # https://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC78
 test: s21_math.a $(filter $(test_dir)/%.o, $(obj_list)) 
 	$(CC) -o $@ $(wordlist 2, $(words $^), $^) -L. -l$(basename $<) $(TESTFlAGS) $(LDFLAGS)
+	
+# В случаях если указана тестовая директория, будут запущены тесты.
+# В другом случае запускаем вручную через ./test var_1 var_2 (где var_ - значения переменых) 
 ifeq ($(test_dir), tests)
 	clear
 	./$@ 
