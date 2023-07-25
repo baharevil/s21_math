@@ -6,7 +6,7 @@ DEBUG = -g
 
 project_name = s21_math
 func_dir = function
-test_dir = tests
+test_dir = .
 dirs = $(func_dir) $(test_dir)
 obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(dirs))))
 
@@ -18,8 +18,10 @@ all: test
 # https://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC78
 test: s21_math.a $(filter $(test_dir)/%.o, $(obj_list)) 
 	$(CC) -o $@ $(wordlist 2, $(words $^), $^) -L. -l$(basename $<) $(TESTFlAGS) $(LDFLAGS)
+ifeq ($(test_dir), tests)
 	clear
 	./$@ 
+endif
 
 s21_math.a: $(filter $(func_dir)/%.o, $(obj_list))
 	ar rc $(addprefix lib, $@) $^
