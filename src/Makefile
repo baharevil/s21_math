@@ -33,4 +33,4 @@ clang:
 	clang-format -i $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
 
 clean:
-	@rm $(project_name) *.o *.a
+	@rm $(project_name) *.o *.a $(func_dir)/*.o
