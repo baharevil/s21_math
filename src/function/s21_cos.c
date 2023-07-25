@@ -1,4 +1,4 @@
-#include "../s21_math.h"
+#include "s21_math.h"
 
 long double s21_cos(double x) {
   long double result = 1, prev_result = 0, temp = 1, epsilon = 1e-20, n = 1;

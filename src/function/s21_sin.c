@@ -1,4 +1,4 @@
-#include "../s21_math.h"
+#include "s21_math.h"
 
 long double s21_sin(double x) {
   long double result = (double)s21_fmod(x, 2 * S21_M_PI), prev_result = 0,

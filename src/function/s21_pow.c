@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "../s21_math.h"
+#include "s21_math.h"
 long double s21_pow(double base, double exp) {
   double result = 1, mod = (double)s21_fabs((double)s21_fmod(exp, 1.0));
   union ieee754_double copy_base, copy_exp, x754_full = {0};

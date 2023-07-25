@@ -1,4 +1,4 @@
-#include "../s21_math.h"
+#include "s21_math.h"
 
 long double s21_ceil(double x) {
   double mod = 0, result = 0;

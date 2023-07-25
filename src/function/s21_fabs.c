@@ -1,4 +1,4 @@
-#include "../s21_math.h"
+#include "s21_math.h"
 
 long double s21_fabs(double x) {
   union ieee854_long_double x854;

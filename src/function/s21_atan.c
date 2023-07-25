@@ -1,4 +1,4 @@
-#include "../s21_math.h"
+#include "s21_math.h"
 
 long double s21_atan(double x) {
   long double result = 0, prev_result = 0, epsilon = 1e-20, n = 2, temp = 0,

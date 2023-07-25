@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Wfloat-equal -Wconversion -std=c11 -pedantic
-TESTFlAGS = -lcheck -lsubunit -lrt -lpthread -lgcov
+CFLAGS = -Wall -Werror -Wextra -Wfloat-equal -Wconversion -std=c11 -pedantic -I.
+TESTFlAGS = #-lcheck -lsubunit -lrt -lpthread -lgcov
 LDFLAGS = -lm
 DEBUG = -g
 
@@ -10,24 +10,18 @@ test_dir = .
 dirs = $(func_dir) $(test_dir)
 obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(dirs))))
 
-.PHONY: all clean test s21_math.a gcov_report
-# all: $(addsuffix .a, $(project_name))
-all: test
+.PHONY: all clean gcov_report
+all: $(project_name)
 
 # Функции используемые в целях
 # https://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC78
-test: s21_math.a $(filter $(test_dir)/%.o, $(obj_list)) 
+
+$(project_name): $(addsuffix .a, $(project_name)) $(addsuffix .o, $(project_name)) $(filter $(func_dir)/%.o, $(obj_list))
 	$(CC) -o $@ $(wordlist 2, $(words $^), $^) -L. -l$(basename $<) $(TESTFlAGS) $(LDFLAGS)
 	
-# В случаях если указана тестовая директория, будут запущены тесты.
-# В другом случае запускаем вручную через ./test var_1 var_2 (где var_ - значения переменых) 
-ifeq ($(test_dir), tests)
-	clear
-	./$@ 
-endif
 
-s21_math.a: $(filter $(func_dir)/%.o, $(obj_list))
-	ar rc $(addprefix lib, $@) $^
+$(addsuffix .a, $(project_name)): $(filter $(func_dir)/%.o, $(obj_list))
+	ar rc $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(DEBUG) -c $^ -o $@
@@ -39,4 +33,4 @@ clang:
 	clang-format -i $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
 
 clean:
-	rm $(obj_list) *.a test
+	@rm $(project_name) *.o *.a

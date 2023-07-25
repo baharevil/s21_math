@@ -1,4 +1,4 @@
-#include "../s21_math.h"
+#include "s21_math.h"
 
 long double s21_log(const double x) {
   double result = 0, prev_result = 0, epsilon = 1e-10, count = 0;
