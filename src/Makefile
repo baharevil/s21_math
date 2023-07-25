@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wfloat-equal -Wconversion -std=c11 -pedantic
-TESTFlAGS = -lcheck -lsubunit -lrt -lpthread 
+TESTFlAGS = -lcheck -lsubunit -lrt -lpthread -lgcov
 LDFLAGS = -lm
 DEBUG = -g
 
@@ -19,7 +19,7 @@ all: test
 test: s21_math.a $(filter $(test_dir)/%.o, $(obj_list)) 
 	$(CC) -o $@ $(wordlist 2, $(words $^), $^) -L. -l$(basename $<) $(TESTFlAGS) $(LDFLAGS)
 	clear
-	./$@ -gcov
+	./$@ 
 
 s21_math.a: $(filter $(func_dir)/%.o, $(obj_list))
 	ar rc $(addprefix lib, $@) $^
