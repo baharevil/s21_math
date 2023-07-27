@@ -6,7 +6,7 @@ DEBUG = -g
 
 project_name = test
 func_dir = function
-test_dir = .
+test_dir = tests
 dirs = $(func_dir) $(test_dir)
 obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(dirs))))
 
