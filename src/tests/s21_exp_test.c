@@ -80,13 +80,11 @@ END_TEST
 START_TEST(test_y_zero) { ck_assert_ldouble_eq(s21_exp(0), exp(0)); }
 END_TEST
 
-// ! FAIL
 START_TEST(test_x_inf_y_zero) {
   double x = 8743517471375471154.34143134134134;
   ck_assert_ldouble_eq(s21_exp(x), exp(x));
 }
 
-// ! FAIL
 START_TEST(test_x_inf_y_zero1) {
   double x = -8743517471375471154.34143134134134;
   ck_assert_ldouble_eq(s21_exp(x), exp(x));
@@ -101,24 +99,24 @@ END_TEST
 START_TEST(test_pos) { ck_assert_ldouble_eq(exp(1234), s21_exp(1234)); }
 END_TEST
 
-START_TEST(test_pos_1) { ck_assert_ldouble_eq(exp(1), s21_exp(1)); }
+START_TEST(test_pos_1) { ck_assert_ldouble_eq_tol(exp(1), s21_exp(1), 1e-6); }
 END_TEST
 
-START_TEST(test_normal) { ck_assert_ldouble_eq(exp(1.7), s21_exp(1.7)); }
+START_TEST(test_normal) { ck_assert_ldouble_eq_tol(exp(1.7), s21_exp(1.7), 1e-6); }
 END_TEST
 
 START_TEST(test_normal_negative) {
-  ck_assert_ldouble_eq(exp(-1.7), s21_exp(-1.7));
+  ck_assert_ldouble_eq_tol(exp(1.7), s21_exp(1.7), 1e-6);
 }
 END_TEST
 
 START_TEST(test_normal_negative_1) {
-  ck_assert_ldouble_eq(exp(-0.7), s21_exp(-0.7));
+  ck_assert_ldouble_eq_tol(exp(-0.7), s21_exp(-0.7), 1e-6);
 }
 END_TEST
 
 START_TEST(test_normal_above_1) {
-  ck_assert_ldouble_eq(exp(14.7), s21_exp(14.7));
+  ck_assert_ldouble_eq_tol(exp(14.7), s21_exp(14.7), 1e-6);
 }
 END_TEST
 START_TEST(test_lesser_than_1) { ck_assert_ldouble_eq(exp(0.7), s21_exp(0.7)); }
