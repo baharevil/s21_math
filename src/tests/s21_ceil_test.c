@@ -46,25 +46,25 @@ END_TEST
 
 START_TEST(ceil_test8) {
   double x = 4.7323234567890765;
-  ck_assert_ldouble_eq_tol(s21_floor(x), floor(x), 6);
+  ck_assert_ldouble_eq_tol(s21_ceil(x), ceil(x), 6);
 }
 END_TEST
 
 START_TEST(ceil_test9) {
   double x = 4732323456789076.5;
-  ck_assert_ldouble_eq_tol(s21_floor(x), floor(x), 6);
+  ck_assert_ldouble_eq_tol(s21_ceil(x), ceil(x), 6);
 }
 END_TEST
 
 START_TEST(ceil_test10) {
   double x = -4.7323234567890765;
-  ck_assert_ldouble_eq_tol(s21_floor(x), floor(x), 6);
+  ck_assert_ldouble_eq_tol(s21_ceil(x), ceil(x), 6);
 }
 END_TEST
 
 START_TEST(ceil_test11) {
   double x = -4732323456789076.5;
-  ck_assert_ldouble_eq_tol(s21_floor(x), floor(x), 6);
+  ck_assert_ldouble_eq_tol(s21_ceil(x), ceil(x), 6);
 }
 END_TEST
 
@@ -116,7 +116,7 @@ START_TEST(test_normal_negative) {
 END_TEST
 
 START_TEST(test_normal_negative_1) {
-  ck_assert_ldouble_eq(floor(-0.7), s21_floor(-0.7));
+  ck_assert_ldouble_eq(ceil(-0.7), s21_ceil(-0.7));
 }
 END_TEST
 
