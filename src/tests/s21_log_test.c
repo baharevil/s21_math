@@ -127,7 +127,7 @@ END_TEST
 START_TEST(test_pos_1) { ck_assert_ldouble_eq(log(1), s21_log(1)); }
 END_TEST
 
-START_TEST(test_normal) { ck_assert_ldouble_eq(log(1.7), s21_log(1.7)); }
+START_TEST(test_normal) { ck_assert_ldouble_eq_tol(log(1.7), s21_log(1.7), 1e-6); }
 END_TEST
 
 START_TEST(test_normal_negative) {

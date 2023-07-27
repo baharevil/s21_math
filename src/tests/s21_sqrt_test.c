@@ -22,7 +22,7 @@ END_TEST
 
 START_TEST(sqrt_test4) {
   double x = S21_INF;
-  ck_assert_ldouble_nan(s21_sqrt(x));
+  ck_assert_ldouble_infinite(s21_sqrt(x));
 }
 END_TEST
 
@@ -68,7 +68,7 @@ START_TEST(sqrt_test11) {
 }
 END_TEST
 
-START_TEST(test_inf) { ck_assert_ldouble_nan(s21_sqrt(S21_INF)); }
+START_TEST(test_inf) { ck_assert_ldouble_infinite(s21_sqrt(S21_INF)); }
 END_TEST
 
 START_TEST(test_nan) {

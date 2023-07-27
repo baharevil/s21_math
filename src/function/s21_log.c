@@ -1,5 +1,7 @@
 #include "s21_math.h"
 
+#include <stdio.h>
+
 long double s21_log(const double x) {
   double result = 0;
   union ieee754_double copy_x, x754_full = {0};
@@ -14,7 +16,7 @@ long double s21_log(const double x) {
     result = -S21_INF;
 
   // Проверка на 1
-  if (s21_fabs((double)(x - 1)) < S21_MIN_VAL)
+  else if (s21_fabs((double)(x - 1)) < S21_MIN_VAL)
     result = 0;
 
   // Проверка на отрицательное число
