@@ -13,6 +13,10 @@ long double s21_log(const double x) {
   if (copy_x.ieee.negative && s21_fabs((double)(x - 0)) < S21_MIN_VAL)
     result = -S21_INF;
 
+  // Проверка на 1
+  if (s21_fabs((double)(x - 1)) < S21_MIN_VAL)
+    result = 0;
+
   // Проверка на отрицательное число
   else if (copy_x.ieee.negative != 0)
     result = -S21_NAN;
