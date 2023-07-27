@@ -1,5 +1,7 @@
 #include "s21_math.h"
 
+#include <stdio.h>
+
 long double s21_atan(double x) {
   long double result = 0;
   union ieee754_double copy_x, x754_full = {0};
@@ -28,8 +30,10 @@ long double s21_atan(double x) {
     // Проверяем валидность
     unsigned short is_valid = (copy_x.d > -1 && copy_x.d < 1);
 
-    // Однострочный вариант конструкции if - else
-    result = (is_valid * copy_x.d) + (!is_valid * 1 / copy_x.d);
+    if (is_valid)
+      result = x;
+    else 
+      result = 1 / x;
 
     // Создаем необходимые перменые
     long double prev_result = 0, epsilon = 1e-20, n = 2, temp = result,
@@ -43,9 +47,9 @@ long double s21_atan(double x) {
       n++;
     }
 
-    // if (!is_valid) result = (S21_M_PI * s21_fabs(x) / (2 * x)) - result;
-    result = (result * is_valid) +
-             (!is_valid * ((S21_M_PI * s21_fabs(x) / (2 * x)) - result));
+    if (!is_valid) result = (S21_M_PI * s21_fabs(x) / (2 * x)) - result;
+    // result = (result * is_valid) +
+    //          (!is_valid * ((S21_M_PI * s21_fabs(x) / (2 * x)) - result));
   }
 
   return (double)result;
