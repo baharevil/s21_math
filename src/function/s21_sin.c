@@ -1,8 +1,7 @@
 #include "s21_math.h"
 
 long double s21_sin(double x) {
-  long double result = (double)s21_fmod(x, 2 * S21_M_PI), prev_result = 0,
-              temp = result, epsilon = 1e-20, n = 2;
+  long double result = 0;
   union ieee754_double copy_x, x754_full = {0};
 
   // Создаем копию преходящего аргумента
@@ -19,7 +18,13 @@ long double s21_sin(double x) {
   // В люом другом случае х число
   else {
     // Метод подсчета: разложение в ряд Тейлора
-    long double square_x = s21_pow((double)temp, 2);
+
+    // В результат кладем приведенный х
+    result = (double)s21_fmod(copy_x.d, 2 * S21_M_PI);
+
+    // Создаем необходимы дополнительные перменные
+    long double temp = result, square_x = s21_pow((double)temp, 2),
+                prev_result = 0, epsilon = 1e-20, n = 2;
 
     while (s21_fabs((double)(result - prev_result)) > epsilon) {
       prev_result = result;

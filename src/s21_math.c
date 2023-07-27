@@ -8,11 +8,10 @@
 int main(int argc, char *argv[]) {
   double arg1 = 0;
   double arg2 = 0;
-  int n = 1;
   if (argc - 1 == 2) {
     sscanf(argv[1], "%lf", &arg1);
     sscanf(argv[2], "%lf", &arg2);
-
+    int n = 1;
     /*
       ! При значение аргумента pi/2 функции tan and sin
       ! Выдают ошибочные значения
@@ -51,8 +50,8 @@ int main(int argc, char *argv[]) {
 
     // exp
     printf("\n%d. ", n++);
-    printf("s21_exp(%lf) = %.25Lf\n", arg1, s21_exp(arg2));
-    printf("       exp(%lf) = %.25lf\n", arg1, exp(arg2));
+    printf("s21_exp(%lf) = %.25Lf\n", arg1, s21_exp(arg1));
+    printf("       exp(%lf) = %.25lf\n", arg1, exp(arg1));
 
     // fabs
     printf("\n%d. ", n++);

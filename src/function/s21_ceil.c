@@ -1,7 +1,7 @@
 #include "s21_math.h"
 
 long double s21_ceil(double x) {
-  double mod = 0, result = 0;
+  double result = 0;
   union ieee754_double copy_x, x754_full = {0};
 
   // Создаем копию
@@ -16,9 +16,9 @@ long double s21_ceil(double x) {
     result = x;
 
   else {
-    mod = (double)s21_fmod(x, 1.0);
-    result = x - mod;
-    if ((s21_fabs(mod) > 0) && x > 0) result++;
+    double mod = (double)s21_fmod(copy_x.d, 1.0);
+    result = copy_x.d - mod + 1 * (((s21_fabs(mod) > 0) && x > 0));
+    // if ((s21_fabs(mod) > 0) && x > 0) result++;
   }
   return result;
 }

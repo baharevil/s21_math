@@ -6,7 +6,7 @@ DEBUG = -g
 
 project_name = test
 func_dir = function
-test_dir = tests
+test_dir = .
 dirs = $(func_dir) $(test_dir)
 obj_list = $(patsubst %.c, %.o, $(wildcard $(addsuffix /*.c, $(dirs))))
 
@@ -33,6 +33,9 @@ s21_math.a: $(filter $(func_dir)/%.o, $(obj_list))
 clang:
 #	clang-format -n $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
 	clang-format -i $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
+
+cppcheck:
+	cppcheck --enable=all --suppress=missingIncludeSystem --std=c11 $(addsuffix /*.c, $(test_dir)) $(addsuffix /*.c, $(func_dir))
 
 clean:
 	@rm *.a $(obj_list) test

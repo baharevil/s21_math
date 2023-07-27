@@ -1,8 +1,7 @@
 #include "s21_math.h"
 
 long double s21_atan(double x) {
-  long double result = 0, prev_result = 0, epsilon = 1e-20, n = 2, temp = 0,
-              square_x = 0;
+  long double result = 0;
   union ieee754_double copy_x, x754_full = {0};
 
   // Создаем копию преходящего аргумента
@@ -18,32 +17,25 @@ long double s21_atan(double x) {
 
   // Проверка на +-INF
   else if ((copy_x.ieee.exponent == x754_full.ieee.exponent) &&
-           (copy_x.ieee.mantissa0 == 0)) {
-    if (copy_x.ieee.negative)
-      result = -S21_M_PI_2;
-    else
-      result = S21_M_PI_2;
-  }
+           (copy_x.ieee.mantissa0 == 0))
+    result = -1 * (1 - 2 * !copy_x.ieee.negative) * S21_M_PI_2;
 
   // Проверка на +-1
-  else if (s21_fabs((double)s21_fabs(copy_x.d) - 1) < S21_MIN_VAL) {
-    if (copy_x.ieee.negative)
-      result = -S21_M_PI_4;
-    else
-      result = S21_M_PI_4;
-  }
+  else if (s21_fabs((double)s21_fabs(copy_x.d) - 1) < S21_MIN_VAL)
+    result = -1 * (1 - 2 * !copy_x.ieee.negative) * S21_M_PI_4;
 
   else {
-    unsigned short is_valid = (x > -1 && x < 1);
+    // Проверяем валидность
+    unsigned short is_valid = (copy_x.d > -1 && copy_x.d < 1);
 
-    if (is_valid)
-      result = x;
-    else
-      result = 1 / x;
+    // Однострочный вариант конструкции if - else
+    result = (is_valid * copy_x.d) + (!is_valid * 1 / copy_x.d);
 
-    temp = result;
-    square_x = s21_pow((double)temp, 2);
+    // Создаем необходимые перменые
+    long double prev_result = 0, epsilon = 1e-20, n = 2, temp = result,
+                square_x = s21_pow((double)temp, 2);
 
+    // Метод расчета: ряд Тейлора
     while (s21_fabs((double)(result - prev_result)) > epsilon) {
       prev_result = result;
       temp *= -square_x;
@@ -51,7 +43,9 @@ long double s21_atan(double x) {
       n++;
     }
 
-    if (!is_valid) result = (S21_M_PI * s21_fabs(x) / (2 * x)) - result;
+    // if (!is_valid) result = (S21_M_PI * s21_fabs(x) / (2 * x)) - result;
+    result = (result * is_valid) +
+             (!is_valid * ((S21_M_PI * s21_fabs(x) / (2 * x)) - result));
   }
 
   return (double)result;
