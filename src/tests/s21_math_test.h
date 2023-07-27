@@ -19,6 +19,10 @@ Suite *suite_fabs(void);
 Suite *suite_floor(void);
 Suite *suite_fmod(void);
 Suite *suite_log(void);
+Suite *suite_pow(void);
+Suite *suite_sin(void);
+Suite *suite_sqrt(void);
+Suite *suite_tan(void);
 
 void run_test(void);
 void run_testcase(Suite *testcase);

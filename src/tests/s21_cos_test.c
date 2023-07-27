@@ -95,16 +95,22 @@ END_TEST
 START_TEST(test_zero) { ck_assert_ldouble_eq(cos(0), s21_cos(0)); }
 END_TEST
 
-START_TEST(test_neg) { ck_assert_ldouble_eq_tol(cos(-1234), s21_cos(-1234), 1e-6); }
+START_TEST(test_neg) {
+  ck_assert_ldouble_eq_tol(cos(-1234), s21_cos(-1234), 1e-6);
+}
 END_TEST
 
-START_TEST(test_pos) { ck_assert_ldouble_eq_tol(cos(1234), s21_cos(1234), 1e-6); }
+START_TEST(test_pos) {
+  ck_assert_ldouble_eq_tol(cos(1234), s21_cos(1234), 1e-6);
+}
 END_TEST
 
 START_TEST(test_pos_1) { ck_assert_ldouble_eq_tol(cos(1), s21_cos(1), 1e-6); }
 END_TEST
 
-START_TEST(test_normal) { ck_assert_ldouble_eq_tol(cos(1.7), s21_cos(1.7), 1e-6); }
+START_TEST(test_normal) {
+  ck_assert_ldouble_eq_tol(cos(1.7), s21_cos(1.7), 1e-6);
+}
 END_TEST
 
 START_TEST(test_normal_negative) {
@@ -121,9 +127,10 @@ START_TEST(test_normal_above_1) {
   ck_assert_ldouble_eq_tol(cos(14.7), s21_cos(14.7), 1e-6);
 }
 END_TEST
-START_TEST(test_lesser_than_1) { ck_assert_ldouble_eq_tol(cos(0.7), s21_cos(0.7), 1e-6); }
+START_TEST(test_lesser_than_1) {
+  ck_assert_ldouble_eq_tol(cos(0.7), s21_cos(0.7), 1e-6);
+}
 END_TEST
-
 
 START_TEST(test_tolerance_pos) {
   double a = 0.1;

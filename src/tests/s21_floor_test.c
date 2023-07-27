@@ -68,7 +68,9 @@ START_TEST(floor_test11) {
 }
 END_TEST
 
-START_TEST(test_inf) { ck_assert_ldouble_eq(s21_floor(S21_INF), floor(S21_INF)); }
+START_TEST(test_inf) {
+  ck_assert_ldouble_eq(s21_floor(S21_INF), floor(S21_INF));
+}
 END_TEST
 
 START_TEST(test_nan) {
@@ -121,7 +123,9 @@ START_TEST(test_normal_above_1) {
   ck_assert_ldouble_eq(floor(14.7), s21_floor(14.7));
 }
 END_TEST
-START_TEST(test_lesser_than_1) { ck_assert_ldouble_eq(floor(0.7), s21_floor(0.7)); }
+START_TEST(test_lesser_than_1) {
+  ck_assert_ldouble_eq(floor(0.7), s21_floor(0.7));
+}
 END_TEST
 START_TEST(test_positive_inf) {
   ck_assert_ldouble_eq(floor(S21_INF), s21_floor(S21_INF));

@@ -5,30 +5,30 @@
 START_TEST(fmod_test1) {
   double x = 1.0;
   double y = 0.5;
-  ck_assert_ldouble_eq_tol(s21_fmod(x,y), fmod(x,y), 6);
+  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
 }
 END_TEST
 
 START_TEST(fmod_test2) {
   double x = -1.0;
   double y = -0.5;
-  ck_assert_ldouble_eq_tol(s21_fmod(x,y), fmod(x,y), 6);
+  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
 }
 END_TEST
 
 START_TEST(fmod_test3) {
   double x = S21_INF;
   double y = 56;
-  ck_assert_ldouble_nan(s21_fmod(x,y));
-  ck_assert_ldouble_nan(fmod(x,y));
+  ck_assert_ldouble_nan(s21_fmod(x, y));
+  ck_assert_ldouble_nan(fmod(x, y));
 }
 END_TEST
 
 START_TEST(fmod_test4) {
   double x = -S21_INF;
   double y = -56;
-  ck_assert_ldouble_nan(s21_fmod(x,y));
-  ck_assert_ldouble_nan(fmod(x,y));
+  ck_assert_ldouble_nan(s21_fmod(x, y));
+  ck_assert_ldouble_nan(fmod(x, y));
 }
 END_TEST
 
@@ -42,28 +42,28 @@ END_TEST
 START_TEST(fmod_test7) {
   double x = 4.7;
   double y = 3.9;
-  ck_assert_ldouble_eq_tol(s21_fmod(x,y), fmod(x,y), 6);
+  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
 }
 END_TEST
 
 START_TEST(fmod_test8) {
   double x = 4.7323234567890765;
   double y = 3.9567832323490765;
-  ck_assert_ldouble_eq_tol(s21_fmod(x,y), fmod(x,y), 6);
+  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
 }
 END_TEST
 
 START_TEST(fmod_test9) {
   double x = 4732323456789076.5;
   double y = 3956783232349076.5;
-  ck_assert_ldouble_eq(s21_fmod(x,y), fmod(x,y));
+  ck_assert_ldouble_eq(s21_fmod(x, y), fmod(x, y));
 }
 END_TEST
 
 START_TEST(fmod_test10) {
   double x = -4.7323234567890765;
   double y = -3956783232349076.5;
-  ck_assert_ldouble_eq_tol(s21_fmod(x,y), fmod(x,y), 6);
+  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
 }
 END_TEST
 
@@ -76,21 +76,22 @@ END_TEST
 START_TEST(test_x_inf_y_zero1) {
   double x = -8743517471375471154.34143134134134;
   double y = -8743547115417471375.13413434143134;
-  ck_assert_ldouble_eq(s21_fmod(x,y), fmod(x,y));
+  ck_assert_ldouble_eq(s21_fmod(x, y), fmod(x, y));
 }
 
-START_TEST(test_neg) { ck_assert_ldouble_eq(fmod(-1234, 4), s21_fmod(-1234,4)); }
+START_TEST(test_neg) {
+  ck_assert_ldouble_eq(fmod(-1234, 4), s21_fmod(-1234, 4));
+}
 END_TEST
 
-START_TEST(test_pos) { ck_assert_ldouble_eq(fmod(1234, 4), s21_fmod(1234,4)); }
+START_TEST(test_pos) { ck_assert_ldouble_eq(fmod(1234, 4), s21_fmod(1234, 4)); }
 END_TEST
 
-START_TEST(test_pos_1) { ck_assert_ldouble_eq(fmod(4, 2), s21_fmod(4,2)); }
+START_TEST(test_pos_1) { ck_assert_ldouble_eq(fmod(4, 2), s21_fmod(4, 2)); }
 END_TEST
-
 
 START_TEST(test_dbl_min) {
-  double num = DBL_MIN*2;
+  double num = DBL_MIN * 2;
   double orig = fmod(num, DBL_MIN);
   double mmyy = (double)s21_fmod(num, DBL_MIN);
   ck_assert_ldouble_eq(orig, mmyy);
@@ -98,8 +99,8 @@ START_TEST(test_dbl_min) {
 END_TEST
 
 START_TEST(test_dbl_max) {
-  double orig = fmod(DBL_MAX*2, DBL_MAX);
-  double mmyy = (double)s21_fmod(DBL_MAX*2, DBL_MAX);
+  double orig = fmod(DBL_MAX * 2, DBL_MAX);
+  double mmyy = (double)s21_fmod(DBL_MAX * 2, DBL_MAX);
   ck_assert_ldouble_nan(orig);
   ck_assert_ldouble_nan(mmyy);
 }

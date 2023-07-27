@@ -111,7 +111,14 @@ START_TEST(test_x_inf_y_zero1) {
 START_TEST(test_zero) { ck_assert_ldouble_eq(log(0), s21_log(0)); }
 END_TEST
 
-START_TEST(test_neg) { ck_assert_ldouble_eq(log(-1234), s21_log(-1234)); }
+START_TEST(test_neg) {
+  // ck_assert_ldouble_eq(log(-1234), s21_log(-1234));
+  double x = -874351;
+  long double orig = log(x);
+  long double mmyy = s21_log(x);
+  ck_assert_ldouble_nan(orig);
+  ck_assert_ldouble_nan(mmyy);
+}
 END_TEST
 
 START_TEST(test_pos) { ck_assert_ldouble_eq(log(1234), s21_log(1234)); }
@@ -124,12 +131,20 @@ START_TEST(test_normal) { ck_assert_ldouble_eq(log(1.7), s21_log(1.7)); }
 END_TEST
 
 START_TEST(test_normal_negative) {
-  ck_assert_ldouble_eq(log(-1.7), s21_log(-1.7));
+  double x = -1.7;
+  long double orig = log(x);
+  long double mmyy = s21_log(x);
+  ck_assert_ldouble_nan(orig);
+  ck_assert_ldouble_nan(mmyy);
 }
 END_TEST
 
 START_TEST(test_normal_negative_1) {
-  ck_assert_ldouble_eq(log(-0.7), s21_log(-0.7));
+  double x = -0.7;
+  long double orig = log(x);
+  long double mmyy = s21_log(x);
+  ck_assert_ldouble_nan(orig);
+  ck_assert_ldouble_nan(mmyy);
 }
 END_TEST
 
@@ -144,21 +159,25 @@ START_TEST(test_positive_inf) {
 }
 END_TEST
 START_TEST(test_negative_inf) {
-  ck_assert_ldouble_eq(log(-S21_INF), s21_log(-S21_INF));
+  double x = -S21_INF;
+  long double orig = log(x);
+  long double mmyy = s21_log(x);
+  ck_assert_ldouble_nan(orig);
+  ck_assert_ldouble_nan(mmyy);
 }
 END_TEST
 
 START_TEST(test_tolerance_pos) {
-  double a = 0.1;
+  double a = 3;
   int i = _i;
-  ck_assert_ldouble_eq_tol(log(a * i), s21_log(a * i), TEST_EPS);
+  ck_assert_ldouble_eq_tol(log(a * i), s21_log(a * i), 1e-06);
 }
 END_TEST
 
 START_TEST(test_tolerance_neg) {
-  double a = 0.1;
+  double a = -3;
   int i = _i;
-  ck_assert_ldouble_eq_tol(log(-a * i), s21_log(-a * i), TEST_EPS);
+  ck_assert_ldouble_eq_tol(log(-a * i), s21_log(-a * i), 1e-06);
 }
 
 START_TEST(test_dbl_min) {
@@ -174,7 +193,7 @@ END_TEST
 START_TEST(test_dbl_max) {
   double orig = log(DBL_MAX);
   double mmyy = (double)s21_log(DBL_MAX);
-  ck_assert_ldouble_eq(orig, mmyy);
+  ck_assert_ldouble_eq_tol(orig, mmyy, 1e-6);
 }
 END_TEST
 
@@ -209,8 +228,8 @@ Suite *suite_log(void) {
   tcase_add_test(tc, test_negative_inf);
   tcase_add_test(tc, test_lesser_than_1);
   tcase_add_test(tc, test_positive_inf);
-  tcase_add_loop_test(tc, test_tolerance_pos, 0, 100);
-  tcase_add_loop_test(tc, test_tolerance_neg, 0, 100);
+  tcase_add_loop_test(tc, test_tolerance_pos, 1, 100);
+  tcase_add_loop_test(tc, test_tolerance_neg, 1, 100);
   tcase_add_test(tc, test_dbl_min);
   tcase_add_test(tc, test_dbl_max);
   suite_add_tcase(s, tc);

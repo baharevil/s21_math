@@ -102,7 +102,9 @@ END_TEST
 START_TEST(test_pos_1) { ck_assert_ldouble_eq_tol(exp(1), s21_exp(1), 1e-6); }
 END_TEST
 
-START_TEST(test_normal) { ck_assert_ldouble_eq_tol(exp(1.7), s21_exp(1.7), 1e-6); }
+START_TEST(test_normal) {
+  ck_assert_ldouble_eq_tol(exp(1.7), s21_exp(1.7), 1e-6);
+}
 END_TEST
 
 START_TEST(test_normal_negative) {
