@@ -461,7 +461,7 @@
 
 /* Get definitions of __STDC_* predefined macros, if the compiler has
    not preincluded this header automatically.  */
-#include <stdc-predef.h>
+#include "stdc-predef.h"
 
 /* This macro indicates that the installed library is the GNU C Library.
    For historic reasons the value now is 6 and this will stay from now
