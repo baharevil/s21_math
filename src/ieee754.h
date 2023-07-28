@@ -18,7 +18,7 @@
 #ifndef _IEEE754_H
 #define _IEEE754_H 1
 
-#include <features.h>
+#include "features.h"
 
 #include <bits/endian.h>
 
