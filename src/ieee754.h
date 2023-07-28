@@ -20,7 +20,7 @@
 
 #include "features.h"
 
-#include <bits/endian.h>
+#include "endian.h"
 
 __BEGIN_DECLS
 
