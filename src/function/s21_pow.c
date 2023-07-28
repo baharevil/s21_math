@@ -46,7 +46,8 @@ long double s21_pow(double base, double exp) {
       result *= (double)s21_exp((copy_exp.d * (double)s21_log(copy_base.d)));
 
     // Если степень отрицательная
-    if (exp < 0) result = 1 / result;
+    if (exp < 0)
+      result = 1 / result;
   }
 
   return result;

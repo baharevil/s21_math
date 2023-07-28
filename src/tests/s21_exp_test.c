@@ -84,11 +84,13 @@ START_TEST(test_x_inf_y_zero) {
   double x = 8743517471375471154.34143134134134;
   ck_assert_ldouble_eq(s21_exp(x), exp(x));
 }
+END_TEST
 
 START_TEST(test_x_inf_y_zero1) {
   double x = -8743517471375471154.34143134134134;
   ck_assert_ldouble_eq(s21_exp(x), exp(x));
 }
+END_TEST
 
 START_TEST(test_zero) { ck_assert_ldouble_eq(exp(0), s21_exp(0)); }
 END_TEST
@@ -144,6 +146,7 @@ START_TEST(test_tolerance_neg) {
   int i = _i;
   ck_assert_ldouble_eq_tol(exp(-a * i), s21_exp(-a * i), TEST_EPS);
 }
+END_TEST
 
 START_TEST(test_dbl_min) {
   double num = DBL_MIN;
@@ -153,8 +156,6 @@ START_TEST(test_dbl_min) {
 }
 END_TEST
 
-// ! FAIL
-// ? Хотя результаты вроде бы сходятся
 START_TEST(test_dbl_max) {
   double orig = exp(DBL_MAX);
   double mmyy = (double)s21_exp(DBL_MAX);

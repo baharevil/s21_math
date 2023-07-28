@@ -80,18 +80,6 @@ END_TEST
 START_TEST(test_y_zero) { ck_assert_ldouble_eq(s21_tan(0), tan(0)); }
 END_TEST
 
-// // ! FAIL
-// START_TEST(test_x_inf_y_zero) {
-//   double x = 8743517471375471154.34143134134134;
-//   ck_assert_ldouble_eq(s21_tan(x), tan(x));
-// }
-
-// // ! FAIL
-// START_TEST(test_x_inf_y_zero1) {
-//   double x = -8743517471375471154.34143134134134;
-//   ck_assert_ldouble_eq(s21_tan(x), tan(x));
-// }
-
 START_TEST(test_zero) { ck_assert_ldouble_eq(tan(0), s21_tan(0)); }
 END_TEST
 
@@ -144,6 +132,7 @@ START_TEST(test_tolerance_neg) {
   int i = _i;
   ck_assert_ldouble_eq_tol(tan(-a * i), s21_tan(-a * i), TEST_EPS);
 }
+END_TEST
 
 START_TEST(test_dbl_min) {
   double num = DBL_MIN;
@@ -152,15 +141,6 @@ START_TEST(test_dbl_min) {
   ck_assert_ldouble_eq(orig, mmyy);
 }
 END_TEST
-
-// // ! FAIL
-// // ? Хотя результаты вроде бы сходятся
-// START_TEST(test_dbl_max) {
-//   double orig = tan(DBL_MAX);
-//   double mmyy = (double)s21_tan(DBL_MAX);
-//   ck_assert_ldouble_eq(orig, mmyy);
-// }
-// END_TEST
 
 Suite *suite_tan(void) {
   Suite *s = suite_create("suite_tan");
@@ -180,8 +160,6 @@ Suite *suite_tan(void) {
   tcase_add_test(tc, test_inf);
   tcase_add_test(tc, test_nan);
   tcase_add_test(tc, test_y_zero);
-  // tcase_add_test(tc, test_x_inf_y_zero);
-  // tcase_add_test(tc, test_x_inf_y_zero1);
   tcase_add_test(tc, test_zero);
   tcase_add_test(tc, test_neg);
   tcase_add_test(tc, test_pos);
@@ -194,7 +172,6 @@ Suite *suite_tan(void) {
   tcase_add_loop_test(tc, test_tolerance_pos, 0, 100);
   tcase_add_loop_test(tc, test_tolerance_neg, 0, 100);
   tcase_add_test(tc, test_dbl_min);
-  // tcase_add_test(tc, test_dbl_max);
   suite_add_tcase(s, tc);
   return s;
 }

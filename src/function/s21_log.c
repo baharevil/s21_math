@@ -1,6 +1,6 @@
-#include "s21_math.h"
-
 #include <stdio.h>
+
+#include "s21_math.h"
 
 long double s21_log(const double x) {
   double result = 0;

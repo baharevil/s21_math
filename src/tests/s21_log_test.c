@@ -99,6 +99,7 @@ START_TEST(test_x_inf_y_zero) {
   double x = 8743517471375471154.34143134134134;
   ck_assert_ldouble_eq_tol(s21_log(x), log(x), 6);
 }
+END_TEST
 
 START_TEST(test_x_inf_y_zero1) {
   double x = -8743517471375471154.34143134134134;
@@ -107,12 +108,12 @@ START_TEST(test_x_inf_y_zero1) {
   ck_assert_ldouble_nan(orig);
   ck_assert_ldouble_nan(mmyy);
 }
+END_TEST
 
 START_TEST(test_zero) { ck_assert_ldouble_eq(log(0), s21_log(0)); }
 END_TEST
 
 START_TEST(test_neg) {
-  // ck_assert_ldouble_eq(log(-1234), s21_log(-1234));
   double x = -874351;
   long double orig = log(x);
   long double mmyy = s21_log(x);
@@ -127,7 +128,9 @@ END_TEST
 START_TEST(test_pos_1) { ck_assert_ldouble_eq(log(1), s21_log(1)); }
 END_TEST
 
-START_TEST(test_normal) { ck_assert_ldouble_eq_tol(log(1.7), s21_log(1.7), 1e-6); }
+START_TEST(test_normal) {
+  ck_assert_ldouble_eq_tol(log(1.7), s21_log(1.7), 1e-6);
+}
 END_TEST
 
 START_TEST(test_normal_negative) {
@@ -179,6 +182,7 @@ START_TEST(test_tolerance_neg) {
   int i = _i;
   ck_assert_ldouble_eq_tol(log(-a * i), s21_log(-a * i), 1e-06);
 }
+END_TEST
 
 START_TEST(test_dbl_min) {
   double num = DBL_MIN;
@@ -188,8 +192,6 @@ START_TEST(test_dbl_min) {
 }
 END_TEST
 
-// ! FAIL
-// ? Хотя результаты вроде бы сходятся
 START_TEST(test_dbl_max) {
   double orig = log(DBL_MAX);
   double mmyy = (double)s21_log(DBL_MAX);

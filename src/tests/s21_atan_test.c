@@ -72,18 +72,6 @@ START_TEST(test_atan_loop_values) {
 }
 END_TEST
 
-// START_TEST(test_atan_dbl_max) {
-//   double x = DBL_MAX;
-//   ck_assert_ldouble_eq_tol(atan(x), s21_atan(x), 1e-6);
-// }
-// END_TEST
-
-// START_TEST(test_atan_dbl_min) {
-//   double x = DBL_MIN;
-//   ck_assert_ldouble_eq_tol(atan(x), s21_atan(x), 1e-6);
-// }
-// END_TEST
-
 Suite *suite_atan(void) {
   Suite *s = suite_create("suite_atan");
   TCase *tc = tcase_create("atan_tc");
@@ -101,8 +89,6 @@ Suite *suite_atan(void) {
   tcase_add_test(tc, test_atan_inf);
   tcase_add_test(tc, test_atan_neg_inf);
   tcase_add_loop_test(tc, test_atan_loop_values, -10, 10);
-  // tcase_add_test(tc, test_atan_dbl_max);
-  // tcase_add_test(tc, test_atan_dbl_min);
 
   suite_add_tcase(s, tc);
   return s;

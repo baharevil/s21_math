@@ -85,12 +85,14 @@ START_TEST(test_x_inf_y_zero) {
   double x = 8743517471375471154.34143134134134;
   ck_assert_ldouble_eq(s21_fabs(x), fabs(x));
 }
+END_TEST
 
 // ! FAIL
 START_TEST(test_x_inf_y_zero1) {
   double x = -8743517471375471154.34143134134134;
   ck_assert_ldouble_eq(s21_fabs(x), fabs(x));
 }
+END_TEST
 
 START_TEST(test_zero) { ck_assert_ldouble_eq(fabs(0.0), s21_fabs(0.0)); }
 END_TEST
@@ -146,6 +148,7 @@ START_TEST(test_tolerance_neg) {
   int i = _i;
   ck_assert_ldouble_eq_tol(fabs(-a * i), s21_fabs(-a * i), TEST_EPS);
 }
+END_TEST
 
 START_TEST(test_dbl_min) {
   double num = DBL_MIN;

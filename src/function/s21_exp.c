@@ -38,7 +38,8 @@ long double s21_exp(double x) {
       result += temp;
     }
 
-    if (is_neg) result = 1 / result;
+    if (is_neg)
+      result = 1 / result;
   }
 
   return (double)result;

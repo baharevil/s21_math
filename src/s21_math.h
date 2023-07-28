@@ -21,7 +21,140 @@
 #define S21_M_SQRT2 1.41421356237309504880    /* sqrt(2) */
 #define S21_M_SQRT1_2 0.70710678118654752440  /* 1/sqrt(2) */
 
-#include <ieee754.h>
+#include <features.h>
+#include <bits/endian.h>
+
+__BEGIN_DECLS
+
+union ieee754_double
+  {
+    double d;
+
+    /* This is the IEEE 754 double-precision format.  */
+    struct
+      {
+#if	__BYTE_ORDER == __BIG_ENDIAN
+	unsigned int negative:1;
+	unsigned int exponent:11;
+	/* Together these comprise the mantissa.  */
+	unsigned int mantissa0:20;
+	unsigned int mantissa1:32;
+#endif				/* Big endian.  */
+#if	__BYTE_ORDER == __LITTLE_ENDIAN
+# if	__FLOAT_WORD_ORDER == __BIG_ENDIAN
+	unsigned int mantissa0:20;
+	unsigned int exponent:11;
+	unsigned int negative:1;
+	unsigned int mantissa1:32;
+# else
+	/* Together these comprise the mantissa.  */
+	unsigned int mantissa1:32;
+	unsigned int mantissa0:20;
+	unsigned int exponent:11;
+	unsigned int negative:1;
+# endif
+#endif				/* Little endian.  */
+      } ieee;
+
+    /* This format makes it easier to see if a NaN is a signalling NaN.  */
+    struct
+      {
+#if	__BYTE_ORDER == __BIG_ENDIAN
+	unsigned int negative:1;
+	unsigned int exponent:11;
+	unsigned int quiet_nan:1;
+	/* Together these comprise the mantissa.  */
+	unsigned int mantissa0:19;
+	unsigned int mantissa1:32;
+#else
+# if	__FLOAT_WORD_ORDER == __BIG_ENDIAN
+	unsigned int mantissa0:19;
+	unsigned int quiet_nan:1;
+	unsigned int exponent:11;
+	unsigned int negative:1;
+	unsigned int mantissa1:32;
+# else
+	/* Together these comprise the mantissa.  */
+	unsigned int mantissa1:32;
+	unsigned int mantissa0:19;
+	unsigned int quiet_nan:1;
+	unsigned int exponent:11;
+	unsigned int negative:1;
+# endif
+#endif
+      } ieee_nan;
+  };
+
+#define IEEE754_DOUBLE_BIAS	0x3ff /* Added to exponent.  */
+
+union ieee854_long_double
+  {
+    long double d;
+
+    /* This is the IEEE 854 double-extended-precision format.  */
+    struct
+      {
+#if	__BYTE_ORDER == __BIG_ENDIAN
+	unsigned int negative:1;
+	unsigned int exponent:15;
+	unsigned int empty:16;
+	unsigned int mantissa0:32;
+	unsigned int mantissa1:32;
+#endif
+#if	__BYTE_ORDER == __LITTLE_ENDIAN
+# if	__FLOAT_WORD_ORDER == __BIG_ENDIAN
+	unsigned int exponent:15;
+	unsigned int negative:1;
+	unsigned int empty:16;
+	unsigned int mantissa0:32;
+	unsigned int mantissa1:32;
+# else
+	unsigned int mantissa1:32;
+	unsigned int mantissa0:32;
+	unsigned int exponent:15;
+	unsigned int negative:1;
+	unsigned int empty:16;
+# endif
+#endif
+      } ieee;
+
+    /* This is for NaNs in the IEEE 854 double-extended-precision format.  */
+    struct
+      {
+#if	__BYTE_ORDER == __BIG_ENDIAN
+	unsigned int negative:1;
+	unsigned int exponent:15;
+	unsigned int empty:16;
+	unsigned int one:1;
+	unsigned int quiet_nan:1;
+	unsigned int mantissa0:30;
+	unsigned int mantissa1:32;
+#endif
+#if	__BYTE_ORDER == __LITTLE_ENDIAN
+# if	__FLOAT_WORD_ORDER == __BIG_ENDIAN
+	unsigned int exponent:15;
+	unsigned int negative:1;
+	unsigned int empty:16;
+	unsigned int mantissa0:30;
+	unsigned int quiet_nan:1;
+	unsigned int one:1;
+	unsigned int mantissa1:32;
+# else
+	unsigned int mantissa1:32;
+	unsigned int mantissa0:30;
+	unsigned int quiet_nan:1;
+	unsigned int one:1;
+	unsigned int exponent:15;
+	unsigned int negative:1;
+	unsigned int empty:16;
+# endif
+#endif
+      } ieee_nan;
+  };
+
+#define IEEE854_LONG_DOUBLE_BIAS 0x3fff
+
+__END_DECLS
 
 int s21_abs(int x);
 long double s21_acos(double x);
@@ -38,21 +171,5 @@ long double s21_pow(double base, double exponent);
 long double s21_sin(double x);
 long double s21_sqrt(double x);
 long double s21_tan(double x);
-
-// 1	int abs(int x)	                            | +
-// 2	long double acos(double x)	                | +
-// 3	long double asin(double x)	                | +
-// 4	long double atan(double x)	                | +
-// 5	long double ceil(double x)	                | +
-// 6	long double cos(double x)	                | +
-// 7	long double exp(double x)	                | +
-// 8	long double fabs(double x)	                | +
-// 9	long double floor(double x)	                | +
-// 10	long double fmod(double x, double y)        | +
-// 11	long double log(double x)	                | +
-// 12	long double pow(double base, double exp)	| +
-// 13	long double sin(double x)	                | +
-// 14	long double sqrt(double x)	                | +
-// 15	long double tan(double x)                   | +
 
 #endif

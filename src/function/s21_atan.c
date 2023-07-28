@@ -1,6 +1,6 @@
-#include "s21_math.h"
-
 #include <stdio.h>
+
+#include "s21_math.h"
 
 long double s21_atan(double x) {
   long double result = 0;
@@ -32,7 +32,7 @@ long double s21_atan(double x) {
 
     if (is_valid)
       result = x;
-    else 
+    else
       result = 1 / x;
 
     // Создаем необходимые перменые
@@ -47,7 +47,8 @@ long double s21_atan(double x) {
       n++;
     }
 
-    if (!is_valid) result = (S21_M_PI * s21_fabs(x) / (2 * x)) - result;
+    if (!is_valid)
+      result = (S21_M_PI * s21_fabs(x) / (2 * x)) - result;
     // result = (result * is_valid) +
     //          (!is_valid * ((S21_M_PI * s21_fabs(x) / (2 * x)) - result));
   }
