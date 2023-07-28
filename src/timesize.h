@@ -1,5 +1,5 @@
-/* Features part to handle 64-bit time_t support.
-   Copyright (C) 2021-2022 Free Software Foundation, Inc.
+/* Bit size of the time_t type at glibc build time, x86-64 and x32 case.
+   Copyright (C) 2018-2022 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -16,22 +16,12 @@
    License along with the GNU C Library; if not, see
    <https://www.gnu.org/licenses/>.  */
 
-/* We need to know the word size in order to check the time size.  */
 #include "wordsize.h"
-#include "timesize.h"
 
-#if defined _TIME_BITS
-# if _TIME_BITS == 64
-#  if ! defined (_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64
-#   error "_TIME_BITS=64 is allowed only with _FILE_OFFSET_BITS=64"
-#  elif __TIMESIZE == 32
-#   define __USE_TIME_BITS64	1
-#  endif
-# elif _TIME_BITS == 32
-#  if __TIMESIZE > 32
-#   error "_TIME_BITS=32 is not compatible with __TIMESIZE > 32"
-#  endif
-# else
-#  error Invalid _TIME_BITS value (can only be 32 or 64-bit)
-# endif
+#if defined __x86_64__ && defined __ILP32__
+/* For x32, time is 64-bit even though word size is 32-bit.  */
+# define __TIMESIZE	64
+#else
+/* For others, time size is word size.  */
+# define __TIMESIZE	__WORDSIZE
 #endif
