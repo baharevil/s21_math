@@ -121,6 +121,12 @@ START_TEST(test_tolerance_pos) {
 }
 END_TEST
 
+// START_TEST(test_tolerance_neg) {
+//   double a = 0.1;
+//   int i = _i;
+//   ck_assert_ldouble_eq_tol(sqrt(-a * i), s21_sqrt(-a * i), TEST_EPS);
+// }
+
 START_TEST(test_dbl_min) {
   double num = DBL_MIN;
   double orig = sqrt(num);
@@ -128,6 +134,15 @@ START_TEST(test_dbl_min) {
   ck_assert_ldouble_eq_tol(orig, mmyy, 1e-6);
 }
 END_TEST
+
+// // ! FAIL
+// // ? Хотя результаты вроде бы сходятся
+// START_TEST(test_dbl_max) {
+//   double orig = sqrt(DBL_MAX);
+//   double mmyy = (double)s21_sqrt(DBL_MAX);
+//   ck_assert_ldouble_eq(orig, mmyy);
+// }
+// END_TEST
 
 Suite *suite_sqrt(void) {
   Suite *s = suite_create("suite_sqrt");
@@ -147,6 +162,8 @@ Suite *suite_sqrt(void) {
   tcase_add_test(tc, test_inf);
   tcase_add_test(tc, test_nan);
   tcase_add_test(tc, test_y_zero);
+  // tcase_add_test(tc, test_x_inf_y_zero);
+  // tcase_add_test(tc, test_x_inf_y_zero1);
   tcase_add_test(tc, test_zero);
   tcase_add_test(tc, test_neg);
   tcase_add_test(tc, test_pos);
@@ -155,7 +172,9 @@ Suite *suite_sqrt(void) {
   tcase_add_test(tc, test_normal_above_1);
   tcase_add_test(tc, test_lesser_than_1);
   tcase_add_loop_test(tc, test_tolerance_pos, 21, 120);
+  // tcase_add_loop_test(tc, test_tolerance_neg, 0, 100);
   tcase_add_test(tc, test_dbl_min);
+  // tcase_add_test(tc, test_dbl_max);
   suite_add_tcase(s, tc);
   return s;
 }

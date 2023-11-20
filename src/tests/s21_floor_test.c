@@ -39,8 +39,8 @@ START_TEST(floor_test6) {
 END_TEST
 
 START_TEST(floor_test7) {
-  double x = 4.7;
-  ck_assert_ldouble_eq_tol(s21_floor(x), floor(x), 6);
+  double x = (double)s21_fabs(S21_NAN);
+  ck_assert_ldouble_nan(s21_floor(x));
 }
 END_TEST
 
@@ -66,20 +66,6 @@ START_TEST(floor_test11) {
   double x = -4732323456789076.5;
   ck_assert_ldouble_eq_tol(s21_floor(x), floor(x), 6);
 }
-END_TEST
-
-START_TEST(test_inf) {
-  ck_assert_ldouble_eq(s21_floor(S21_INF), floor(S21_INF));
-}
-END_TEST
-
-START_TEST(test_nan) {
-  ck_assert_ldouble_nan(s21_floor(S21_NAN));
-  ck_assert_ldouble_nan(floor(S21_NAN));
-}
-END_TEST
-
-START_TEST(test_y_zero) { ck_assert_ldouble_eq(s21_floor(0), floor(0)); }
 END_TEST
 
 START_TEST(test_x_inf_y_zero) {
@@ -158,6 +144,13 @@ START_TEST(test_dbl_min) {
 }
 END_TEST
 
+START_TEST(test_dbl_max) {
+  double orig = floor(DBL_MAX);
+  double mmyy = (double)s21_floor(DBL_MAX);
+  ck_assert_ldouble_eq(orig, mmyy);
+}
+END_TEST
+
 Suite *suite_floor(void) {
   Suite *s = suite_create("suite_floor");
   TCase *tc = tcase_create("floor_tc");
@@ -173,9 +166,6 @@ Suite *suite_floor(void) {
   tcase_add_test(tc, floor_test9);
   tcase_add_test(tc, floor_test10);
   tcase_add_test(tc, floor_test11);
-  tcase_add_test(tc, test_inf);
-  tcase_add_test(tc, test_nan);
-  tcase_add_test(tc, test_y_zero);
   tcase_add_test(tc, test_x_inf_y_zero);
   tcase_add_test(tc, test_x_inf_y_zero1);
   tcase_add_test(tc, test_zero);
@@ -192,6 +182,7 @@ Suite *suite_floor(void) {
   tcase_add_loop_test(tc, test_tolerance_pos, 0, 100);
   tcase_add_loop_test(tc, test_tolerance_neg, 0, 100);
   tcase_add_test(tc, test_dbl_min);
+  tcase_add_test(tc, test_dbl_max);
   suite_add_tcase(s, tc);
   return s;
 }

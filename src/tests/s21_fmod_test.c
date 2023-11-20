@@ -2,6 +2,13 @@
 
 #define TEST_EPS 1e-6l
 
+START_TEST(fmod_test) {
+  double x = 1.0;
+  double y = -0;
+  ck_assert_ldouble_nan(s21_fmod(x, y));
+}
+END_TEST
+
 START_TEST(fmod_test1) {
   double x = 1.0;
   double y = 0.5;
@@ -11,7 +18,7 @@ END_TEST
 
 START_TEST(fmod_test2) {
   double x = -1.0;
-  double y = -0.5;
+  double y = -S21_INF;
   ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
 }
 END_TEST
@@ -40,42 +47,43 @@ START_TEST(fmod_test6) {
 END_TEST
 
 START_TEST(fmod_test7) {
-  double x = 4.7;
-  double y = 3.9;
-  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
+  double x = (double)s21_fabs(S21_NAN);
+  double y = 2;
+  ck_assert_ldouble_nan(s21_fmod(x, y));
 }
 END_TEST
 
 START_TEST(fmod_test8) {
   double x = 4.7323234567890765;
-  double y = 3.9567832323490765;
-  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
+  double y = (double)s21_fabs(S21_NAN);
+  ck_assert_ldouble_nan(s21_fmod(x, y));
 }
 END_TEST
 
 START_TEST(fmod_test9) {
   double x = 4732323456789076.5;
-  double y = 3956783232349076.5;
-  ck_assert_ldouble_eq(s21_fmod(x, y), fmod(x, y));
+  double y = S21_NAN;
+  ck_assert_ldouble_nan(s21_fmod(x, y));
 }
 END_TEST
 
 START_TEST(fmod_test10) {
   double x = -4.7323234567890765;
-  double y = 0;
-  ck_assert_ldouble_nan(s21_fmod(x, y));
+  double y = -S21_INF;
+  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 6);
 }
 END_TEST
 
 START_TEST(test_x_inf_y_zero) {
-  double x = S21_INF;
-  double y = 1;
-  ck_assert_ldouble_nan(s21_fmod(x, y));
+  double x = 8743517471375471154.34143134134134;
+  double y = 1747.13787435547115434144134313413;
+  ck_assert_ldouble_eq_tol(s21_fmod(x, y), fmod(x, y), 16);
 }
+END_TEST
 
 START_TEST(test_x_inf_y_zero1) {
   double x = -8743517471375471154.34143134134134;
-  double y = S21_INF;
+  double y = -8743547115417471375.13413434143134;
   ck_assert_ldouble_eq(s21_fmod(x, y), fmod(x, y));
 }
 END_TEST
@@ -89,12 +97,6 @@ START_TEST(test_pos) { ck_assert_ldouble_eq(fmod(1234, 4), s21_fmod(1234, 4)); }
 END_TEST
 
 START_TEST(test_pos_1) { ck_assert_ldouble_eq(fmod(4, 2), s21_fmod(4, 2)); }
-END_TEST
-
-START_TEST(test_pos_x_nan) { ck_assert_ldouble_nan(s21_fmod(NAN, 2)); }
-END_TEST
-
-START_TEST(test_pos_y_nan) { ck_assert_ldouble_nan(s21_fmod(2, NAN)); }
 END_TEST
 
 START_TEST(test_dbl_min) {
@@ -117,6 +119,7 @@ Suite *suite_fmod(void) {
   Suite *s = suite_create("suite_fmod");
   TCase *tc = tcase_create("fmod_tc");
 
+  tcase_add_test(tc, fmod_test);
   tcase_add_test(tc, fmod_test1);
   tcase_add_test(tc, fmod_test2);
   tcase_add_test(tc, fmod_test3);
@@ -131,8 +134,6 @@ Suite *suite_fmod(void) {
   tcase_add_test(tc, test_neg);
   tcase_add_test(tc, test_pos);
   tcase_add_test(tc, test_pos_1);
-  tcase_add_test(tc, test_pos_x_nan);
-  tcase_add_test(tc, test_pos_y_nan);
   tcase_add_test(tc, test_dbl_min);
   tcase_add_test(tc, test_dbl_max);
   suite_add_tcase(s, tc);

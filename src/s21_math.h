@@ -3,8 +3,8 @@
 
 #define S21_NAN 0.0f / 0.0f
 #define S21_INF 1.0f / 0.0f
-#define S21_HUGE_VAL 1e10000f
 #define S21_MIN_VAL 1e-323
+#define S21_DBL_MAX 1.7976931348623158e+308
 
 /* Some useful constants.  */
 #define S21_M_E 2.7182818284590452354         /* e */
@@ -20,8 +20,6 @@
 #define S21_M_2_SQRTPI 1.12837916709551257390 /* 2/sqrt(pi) */
 #define S21_M_SQRT2 1.41421356237309504880    /* sqrt(2) */
 #define S21_M_SQRT1_2 0.70710678118654752440  /* 1/sqrt(2) */
-
-#include "ieee754.h"
 
 int s21_abs(int x);
 long double s21_acos(double x);

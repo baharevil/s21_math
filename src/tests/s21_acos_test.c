@@ -1,13 +1,13 @@
 #include "s21_math_test.h"
 
 START_TEST(test_pos) {
-  double x = 0.999;
+  double x = 1;
   ck_assert_ldouble_eq_tol(acos(x), s21_acos(x), 1e-6);
 }
 END_TEST
 
 START_TEST(test_pos2) {
-  double x = 1;
+  double x = -1;
   ck_assert_ldouble_eq_tol(acos(x), s21_acos(x), 1e-6);
 }
 END_TEST

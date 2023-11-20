@@ -1,3 +1,4 @@
+#include "s21_ieee754.h"
 #include "s21_math.h"
 
 long double s21_exp(double x) {
@@ -38,8 +39,7 @@ long double s21_exp(double x) {
       result += temp;
     }
 
-    if (is_neg)
-      result = 1 / result;
+    if (is_neg) result = 1 / result;
   }
 
   return (double)result;

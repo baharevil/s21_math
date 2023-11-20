@@ -1,7 +1,8 @@
+#include "s21_ieee754.h"
 #include "s21_math.h"
 
 long double s21_fmod(double x, double y) {
-  long double result = 0;
+  long double result = 1;
   union ieee754_double copy_x, copy_y, x754_full = {0};
 
   // Создаем копии преходящих аргументов
@@ -12,8 +13,7 @@ long double s21_fmod(double x, double y) {
   x754_full.ieee.exponent = (1 << 11) - 1;
 
   // Проверка на x / 0
-  if (s21_fabs(copy_y.d - 0) < S21_MIN_VAL)
-    result = S21_NAN;
+  if (s21_fabs(copy_y.d - 0) < S21_MIN_VAL) result = S21_NAN;
 
   // Проверка х = nan
   else if ((copy_x.ieee_nan.negative == 0) &&

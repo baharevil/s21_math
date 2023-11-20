@@ -114,6 +114,7 @@ START_TEST(test_zero) { ck_assert_ldouble_eq(log(0), s21_log(0)); }
 END_TEST
 
 START_TEST(test_neg) {
+  // ck_assert_ldouble_eq(log(-1234), s21_log(-1234));
   double x = -874351;
   long double orig = log(x);
   long double mmyy = s21_log(x);
@@ -192,6 +193,8 @@ START_TEST(test_dbl_min) {
 }
 END_TEST
 
+// ! FAIL
+// ? Хотя результаты вроде бы сходятся
 START_TEST(test_dbl_max) {
   double orig = log(DBL_MAX);
   double mmyy = (double)s21_log(DBL_MAX);

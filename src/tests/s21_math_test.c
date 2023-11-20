@@ -15,8 +15,7 @@ void run_tests(void) {
 void run_testcase(Suite *testcase) {
   static int counter_testcase = 1;
 
-  if (counter_testcase > 0)
-    putchar('\n');
+  if (counter_testcase > 0) putchar('\n');
   printf("%s%d%s", "CURRENT TEST: ", counter_testcase, "\n");
   counter_testcase++;
   SRunner *sr = srunner_create(testcase);

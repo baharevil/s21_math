@@ -18,10 +18,7 @@
 #ifndef _IEEE754_H
 #define _IEEE754_H 1
 
-#include "endian.h"
-#include "features.h"
-
-__BEGIN_DECLS
+#include <endian.h>
 
 union ieee754_float {
   float f;
@@ -180,7 +177,5 @@ union ieee854_long_double {
 };
 
 #define IEEE854_LONG_DOUBLE_BIAS 0x3fff
-
-__END_DECLS
 
 #endif /* ieee754.h */

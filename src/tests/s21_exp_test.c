@@ -156,6 +156,8 @@ START_TEST(test_dbl_min) {
 }
 END_TEST
 
+// ! FAIL
+// ? Хотя результаты вроде бы сходятся
 START_TEST(test_dbl_max) {
   double orig = exp(DBL_MAX);
   double mmyy = (double)s21_exp(DBL_MAX);

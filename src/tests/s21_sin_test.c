@@ -80,6 +80,18 @@ END_TEST
 START_TEST(test_y_zero) { ck_assert_ldouble_eq(s21_sin(0), sin(0)); }
 END_TEST
 
+// // ! FAIL
+// START_TEST(test_x_inf_y_zero) {
+//   double x = 8743517471375471154.34143134134134;
+//   ck_assert_ldouble_eq(s21_sin(x), sin(x));
+// }
+
+// // ! FAIL
+// START_TEST(test_x_inf_y_zero1) {
+//   double x = -8743517471375471154.34143134134134;
+//   ck_assert_ldouble_eq(s21_sin(x), sin(x));
+// }
+
 START_TEST(test_zero) { ck_assert_ldouble_eq(sin(0), s21_sin(0)); }
 END_TEST
 
@@ -142,6 +154,15 @@ START_TEST(test_dbl_min) {
 }
 END_TEST
 
+// // ! FAIL
+// // ? Хотя результаты вроде бы сходятся
+// START_TEST(test_dbl_max) {
+//   double orig = sin(DBL_MAX);
+//   double mmyy = (double)s21_sin(DBL_MAX);
+//   ck_assert_ldouble_eq(orig, mmyy);
+// }
+// END_TEST
+
 Suite *suite_sin(void) {
   Suite *s = suite_create("suite_sin");
   TCase *tc = tcase_create("sin_tc");
@@ -160,6 +181,8 @@ Suite *suite_sin(void) {
   tcase_add_test(tc, test_inf);
   tcase_add_test(tc, test_nan);
   tcase_add_test(tc, test_y_zero);
+  // tcase_add_test(tc, test_x_inf_y_zero);
+  // tcase_add_test(tc, test_x_inf_y_zero1);
   tcase_add_test(tc, test_zero);
   tcase_add_test(tc, test_neg);
   tcase_add_test(tc, test_pos);
@@ -172,6 +195,7 @@ Suite *suite_sin(void) {
   tcase_add_loop_test(tc, test_tolerance_pos, 0, 100);
   tcase_add_loop_test(tc, test_tolerance_neg, 0, 100);
   tcase_add_test(tc, test_dbl_min);
+  // tcase_add_test(tc, test_dbl_max);
   suite_add_tcase(s, tc);
   return s;
 }

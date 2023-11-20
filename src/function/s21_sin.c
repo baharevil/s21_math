@@ -1,3 +1,4 @@
+#include "s21_ieee754.h"
 #include "s21_math.h"
 
 long double s21_sin(double x) {
